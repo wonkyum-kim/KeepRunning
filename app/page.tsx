@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { lusitana } from './ui/fonts';
 
 export default function Home() {
   return (
@@ -7,7 +6,7 @@ export default function Home() {
       <div className='h-20 w-full rounded-lg bg-blue-500 p-4 md:h-52'>
         <Link
           href='/'
-          className={`${lusitana.className} w-full h-full flex items-end justify-center md:justify-start text-white font-bold text-3xl md:text-7xl md:p-4 antialiased select-none cursor-pointer`}
+          className='w-full h-full flex items-end justify-center md:justify-start text-white font-bold text-3xl md:text-7xl md:p-4 antialiased select-none cursor-pointer'
         >
           Keep Running
         </Link>
