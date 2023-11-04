@@ -42,7 +42,7 @@ export default function Sidebar() {
           );
         })}
       </div>
-      <div className='bg-gray-50 w-full h-full rounded-md'></div>
+      <div className='bg-gray-50 w-full h-full rounded-md hidden md:block'></div>
     </div>
   );
 }
