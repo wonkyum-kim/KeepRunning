@@ -16,8 +16,9 @@ export default function Table({ currentPage, data }: TableProps) {
     date: oriDate,
     contest: oriContest,
     length: oriLength,
-    link: oriLink,
+    id: oriId,
   } = data;
+
   const min = (currentPage - 1) * 10;
   const max = Math.min(min + 10, oriPlace.length);
   const place = oriPlace.slice(min, max);
@@ -26,7 +27,7 @@ export default function Table({ currentPage, data }: TableProps) {
   const date = oriDate.slice(min, max);
   const contest = oriContest.slice(min, max);
   const length = oriLength.slice(min, max);
-  const link = oriLink.slice(min, max);
+  const id = oriId.slice(min, max);
 
   const router = useRouter();
 
@@ -49,7 +50,7 @@ export default function Table({ currentPage, data }: TableProps) {
                 key={contestName}
                 className='whitespace-nowrap min-h-full text-left text-lg cursor-pointer hover:bg-gray-100 border-b last-of-type:border-none [&:first-child>th:first-child]:rounded-tl-lg [&:first-child>th:last-child]:rounded-tr-lg [&:last-child>th:first-child]:rounded-bl-lg [&:last-child>th:last-child]:rounded-br-lg'
                 onClick={() => {
-                  router.push(link[index]);
+                  router.push(`/dashboard/contests/${id[index]}`);
                 }}
               >
                 <th>

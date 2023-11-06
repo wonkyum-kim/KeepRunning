@@ -1,5 +1,7 @@
 async function marathons() {
-  const response = await fetch('http://www.roadrun.co.kr/schedule/list.php');
+  const response = await fetch('http://www.roadrun.co.kr/schedule/list.php', {
+    cache: 'no-store',
+  });
   const buffer = await response.arrayBuffer();
   const decoded = new TextDecoder('euc-kr').decode(buffer);
   return decoded;
@@ -91,18 +93,34 @@ function getLength(info: string) {
   return matches;
 }
 
-function getLink(info: string) {
-  const regex = /<a href=".*?" target=/g;
+// function getLink(info: string) {
+//   const regex = /<a href=".*?" target=/g;
+//   const matches = info.match(regex);
+//   if (!matches) {
+//     return [];
+//   }
+//   for (let i = 0; i < matches.length; ++i) {
+//     // @ts-ignore
+//     const innerText = matches[i].match(/<a href="(.*?)" target=/)[1];
+//     matches[i] = innerText;
+//   }
+//   return matches;
+// }
+
+function getContestId(info: string) {
+  const regex = /'view\.php\?no=(\d+)'/g;
   const matches = info.match(regex);
   if (!matches) {
     return [];
   }
   for (let i = 0; i < matches.length; ++i) {
     // @ts-ignore
-    const innerText = matches[i].match(/<a href="(.*?)" target=/)[1];
+    const startIndex = matches[i].indexOf('=') + 1;
+    const endIndex = matches[i].length - 1;
+    const innerText = matches[i].substring(startIndex, endIndex);
     matches[i] = innerText;
   }
-  return matches;
+  return matches.filter((a, index) => index % 2 == 1);
 }
 
 export async function getContests() {
@@ -116,6 +134,7 @@ export async function getContests() {
   const date = getDate(data) as string[];
   const contest = getContest(data) as string[];
   const length = getLength(data) as string[];
-  const link = getLink(data) as string[];
-  return { place, host, day, date, contest, length, link };
+  // const link = getLink(data) as string[];
+  const id = getContestId(data) as string[];
+  return { place, host, day, date, contest, length, id };
 }

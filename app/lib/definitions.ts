@@ -5,5 +5,5 @@ export type Contest = {
   date: string[];
   contest: string[];
   length: string[];
-  link: string[];
+  id: string[];
 };

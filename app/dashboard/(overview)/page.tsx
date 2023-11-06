@@ -1,3 +1,3 @@
 export default function Page() {
-  return <div>Overview page</div>;
+  return <div className='w-full h-full'>Overview page</div>;
 }
