@@ -32,8 +32,8 @@ export default function Table({ currentPage, data }: TableProps) {
   const router = useRouter();
 
   return (
-    <div className='min-w-full h-[800px] py-5 px-2 overflow-auto bg-gray-50 rounded-lg hidden md:block'>
-      <table className='min-w-full h-full text-gray-900'>
+    <div className='min-w-full py-5 px-2 overflow-auto bg-gray-50 rounded-lg hidden md:block'>
+      <table className='min-w-full text-gray-900'>
         <thead className='text-left text-2xl font-normal'>
           <tr>
             <th className='py-8'>날짜</th>
@@ -48,7 +48,7 @@ export default function Table({ currentPage, data }: TableProps) {
             return (
               <tr
                 key={contestName}
-                className='whitespace-nowrap min-h-full text-left text-lg cursor-pointer hover:bg-gray-100 border-b last-of-type:border-none [&:first-child>th:first-child]:rounded-tl-lg [&:first-child>th:last-child]:rounded-tr-lg [&:last-child>th:first-child]:rounded-bl-lg [&:last-child>th:last-child]:rounded-br-lg'
+                className='whitespace-nowrap h-16 text-left text-lg cursor-pointer hover:bg-gray-100 border-b last-of-type:border-none [&:first-child>th:first-child]:rounded-tl-lg [&:first-child>th:last-child]:rounded-tr-lg [&:last-child>th:first-child]:rounded-bl-lg [&:last-child>th:last-child]:rounded-br-lg'
                 onClick={() => {
                   router.push(`/dashboard/contests/${id[index]}`);
                 }}
