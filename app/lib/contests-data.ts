@@ -64,7 +64,7 @@ function getDate(info: string) {
 }
 
 function getContest(info: string) {
-  const regex = /0, 0, 550, 700, 0, 0, 0, 1, 0\)">.*?<\/a><br>/g;
+  const regex = /0, 0, 550, 700, 0, 0, 0, 1, 0\)">.*?<\/a>(<br>|<img)/g;
   const matches = info.match(regex);
   if (!matches) {
     return [];
@@ -72,7 +72,7 @@ function getContest(info: string) {
   for (let i = 0; i < matches.length; ++i) {
     // @ts-ignore
     const innerText = matches[i].match(
-      /0, 0, 550, 700, 0, 0, 0, 1, 0\)">(.*?)<\/a><br>/
+      /0, 0, 550, 700, 0, 0, 0, 1, 0\)">(.*?)<\/a>(<br>|<img)/
     )[1];
     matches[i] = innerText;
   }
