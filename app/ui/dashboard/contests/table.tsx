@@ -79,8 +79,8 @@ export default function Table({ currentPage, data }: TableProps) {
               }}
             >
               <div>{contestName}</div>
-              <div className='max-w-[54px]'>
-                {date[index]} {day[index]}
+              <div className='max-w-[54px] flex flex-col items-center justify-center'>
+                <div>{date[index]}</div> <div>{day[index]}</div>
               </div>
             </div>
           );
