@@ -1,7 +1,28 @@
-export const generatePagination = (currentPage: number, totalPages: number) => {
+export const generatePagination = (
+  currentPage: number,
+  totalPages: number,
+  md: boolean
+) => {
+  if (!md) {
+    let min = Math.floor(currentPage / 4);
+    if (currentPage % 4 == 0) {
+      min -= 1;
+    }
+
+    return Array.from(
+      { length: Math.min(4, 4 - (4 * (min + 1) - totalPages)) },
+      (_, i) => {
+        return 4 * min + i + 1;
+      }
+    );
+  }
+
+  // 1,2,3,4 -> 1,2,3,4
+  // 5,6,7,8 => 5,6,7,8
+
   // If the total number of pages is 7 or less,
   // display all pages without any ellipsis.
-  if (totalPages <= 7) {
+  if (totalPages <= 7 && md) {
     return Array.from({ length: totalPages }, (_, i) => i + 1);
   }
 

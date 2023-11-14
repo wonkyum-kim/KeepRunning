@@ -73,13 +73,13 @@ export default function Table({ currentPage, data }: TableProps) {
           return (
             <div
               key={contestName}
-              className={`${gothicA1.className} antialiased w-full h-[60px] bg-gray-50 rounded-lg flex items-center justify-between cursor-pointer hover:bg-gray-100 text-lg p-4`}
+              className={`${gothicA1.className} antialiased w-full min-h-[60px] bg-gray-50 rounded-lg flex items-center justify-between cursor-pointer hover:bg-gray-100 text-lg p-4 pr-2`}
               onClick={() => {
                 router.push(`/dashboard/contests/${id[index]}`);
               }}
             >
               <div>{contestName}</div>
-              <div>
+              <div className='max-w-[54px]'>
                 {date[index]} {day[index]}
               </div>
             </div>

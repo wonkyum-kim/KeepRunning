@@ -22,12 +22,15 @@ export default async function Page({
   // const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 
   const splitted = desc.split('<br />').filter((sp) => sp !== '\r\n');
+
   return (
     <div
-      className={`${blackHansSans.className} antialiased w-full h-full flex flex-col p-4`}
+      className={`${blackHansSans.className} antialiased w-full h-full flex flex-col gap-4 p-4`}
     >
-      <div className='flex items-center gap-4'>
-        <div className='text-5xl h-40 flex items-center pl-4'>{name}</div>
+      <div className='flex flex-col md:flex-row items-center gap-4'>
+        <div className='text-3xl font-bold md:text-5xl md:h-40 flex items-center pl-4'>
+          {name}
+        </div>
         {!isLate && (
           <Link
             href={`http://${link}`}
@@ -42,7 +45,7 @@ export default async function Page({
           </div>
         )}
       </div>
-      <div className='w-full h-full flex flex-col pl-4 gap-2 text-2xl'>
+      <div className='w-full h-full flex flex-col pl-4 py-2 gap-4 text-2xl'>
         <div>{`대회일시: ${date}`}</div>
         <div>{`대회장소: ${place}`}</div>
         <div>{`대회종목: ${event}`}</div>

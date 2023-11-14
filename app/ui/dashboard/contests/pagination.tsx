@@ -1,11 +1,11 @@
 'use client';
 
-// import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/outline';
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { generatePagination } from '@/app/lib/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
+import { useMediaQuery } from 'usehooks-ts';
 
 export default function Pagination({ totalPages }: { totalPages: number }) {
   const pathname = usePathname();
@@ -18,7 +18,9 @@ export default function Pagination({ totalPages }: { totalPages: number }) {
     return `${pathname}?${params.toString()}`;
   };
 
-  const allPages = generatePagination(currentPage, totalPages);
+  const md = useMediaQuery('(min-width: 768px)');
+
+  const allPages = generatePagination(currentPage, totalPages, md);
 
   return (
     <div className='inline-flex'>
