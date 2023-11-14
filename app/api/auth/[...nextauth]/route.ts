@@ -1,7 +1,7 @@
 import NextAuth, { AuthOptions } from 'next-auth';
 import StravaProvider from 'next-auth/providers/strava';
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   providers: [
     StravaProvider({
       clientId: process.env.STRAVA_ID as string,
