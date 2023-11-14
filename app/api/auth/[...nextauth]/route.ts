@@ -1,7 +1,7 @@
-import NextAuth, { NextAuthOptions } from 'next-auth';
+import NextAuth, { AuthOptions } from 'next-auth';
 import StravaProvider from 'next-auth/providers/strava';
 
-export const AuthOptions: NextAuthOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     StravaProvider({
       clientId: process.env.STRAVA_ID as string,
@@ -12,7 +12,7 @@ export const AuthOptions: NextAuthOptions = {
   secret: process.env.NEXTAUTH_SECRET,
 };
 
-const handler = NextAuth(AuthOptions);
+const handler = NextAuth(authOptions);
 
 export { handler as GET, handler as POST };
 
