@@ -73,7 +73,7 @@ export default function Table({ currentPage, data }: TableProps) {
           return (
             <div
               key={contestName}
-              className={`${gothicA1.className} antialiased w-full max-h-[12%] bg-gray-50 rounded-lg flex items-center justify-between cursor-pointer hover:bg-gray-100 text-lg p-4`}
+              className={`${gothicA1.className} antialiased w-full h-[60px] bg-gray-50 rounded-lg flex items-center justify-between cursor-pointer hover:bg-gray-100 text-lg p-4`}
               onClick={() => {
                 router.push(`/dashboard/contests/${id[index]}`);
               }}

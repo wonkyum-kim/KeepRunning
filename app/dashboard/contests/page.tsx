@@ -19,7 +19,7 @@ export default async function ContestsPage({
   const totalPages = Math.ceil(data.place.length / 10);
 
   return (
-    <div className='w-full h-full p-5'>
+    <div className='w-full flex flex-col gap-4 p-5'>
       <Suspense key={currentPage}>
         <Table currentPage={currentPage} data={data} />
       </Suspense>
