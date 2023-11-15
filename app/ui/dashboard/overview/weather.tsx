@@ -65,7 +65,7 @@ export default function Weather() {
   return (
     <div
       onClick={getWeatherInfo}
-      className='text-white rounded-lg font-black text-3xl flex flex-col gap-8 items-center justify-center lg:w-[40%] md:h-[50%] bg-indigo-400 shadow-lg shadow-gray-400'
+      className='text-white rounded-lg font-black text-3xl flex flex-col gap-8 items-center justify-center lg:w-[40%] min-h-[150px] lg:h-[50%] bg-indigo-400 shadow-lg shadow-gray-400'
     >
       {!latitude && !longitude && (
         <div className='cursor-pointer'>날씨 정보 불러오기</div>
