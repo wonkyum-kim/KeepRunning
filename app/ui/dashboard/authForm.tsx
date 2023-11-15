@@ -55,7 +55,7 @@ export default function AuthForm() {
       </div>
       <div className='hover:bg-orange-300 cursor-pointer w-[220px] h-8 rounded-md flex gap-2 items-center justify-center bg-orange-400 font-bold text-lg text-white'>
         <FaStrava />
-        <p>스트라바</p>
+        <p>Strava</p>
       </div>
       <div className='underline cursor-pointer py-2' onClick={toggleVariant}>
         {variant === 'LOGIN' ? '가입하기' : '로그인'}
