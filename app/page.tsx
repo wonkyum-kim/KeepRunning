@@ -12,7 +12,7 @@ export default function Home() {
           Keep Running
         </Link>
       </div>
-      <div className='w-full h-full flex gap-4'>
+      <div className='w-full h-full flex flex-col md:flex-row gap-4'>
         <div className='flex flex-col gap-8 w-full h-2/5 md:w-2/5 md:h-full bg-gray-50 rounded-lg items-center justify-center p-4'>
           <p className='text-gray-800 lg:text-lg xl:text-2xl md:leading-loose'>
             <strong>러닝</strong> 계획을 정하고 성과를 기록해보세요.
