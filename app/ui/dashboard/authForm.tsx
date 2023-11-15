@@ -14,11 +14,18 @@ export default function AuthForm() {
   const { status } = useSession();
   const [variant, setVariant] = useState<Variant>('LOGIN');
 
-  const handleClick = async () => {
-    const callback = await signIn('strava', { redirect: false });
-    if (callback?.ok) {
-      router.push('/dashboard/activities');
+  useEffect(() => {
+    if (status === 'authenticated') {
+      router.push('/dashboard');
     }
+  }, [router, status]);
+
+  const stravaLogin = () => {
+    signIn('strava', { redirect: false }).then((callback) => {
+      if (callback?.ok) {
+        router.push('/dashboard');
+      }
+    });
   };
 
   const toggleVariant = useCallback(() => {
@@ -53,7 +60,10 @@ export default function AuthForm() {
           </div>
         </form>
       </div>
-      <div className='hover:bg-orange-300 cursor-pointer w-[220px] h-8 rounded-md flex gap-2 items-center justify-center bg-orange-400 font-bold text-lg text-white'>
+      <div
+        onClick={stravaLogin}
+        className='hover:bg-orange-300 cursor-pointer w-[220px] h-8 rounded-md flex gap-2 items-center justify-center bg-orange-400 font-bold text-lg text-white'
+      >
         <FaStrava />
         <p>Strava</p>
       </div>
