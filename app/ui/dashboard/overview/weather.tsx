@@ -3,10 +3,8 @@
 import { WeatherInfo } from '@/app/types/weather-info';
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import { CiUndo } from 'react-icons/ci';
 
-type Position = null | number;
-
-// 비가 오는 것도...
 function getRunningWeatherCondition(
   temperature: number,
   isSnowing: boolean,
@@ -30,8 +28,8 @@ function getRunningWeatherCondition(
 }
 
 export default function Weather() {
-  const [latitude, setLatitude] = useState<Position>(null);
-  const [longitude, setLongitude] = useState<Position>(null);
+  const [latitude, setLatitude] = useState<number>(37.56);
+  const [longitude, setLongitude] = useState<number>(126.91);
   const [weather, setWeather] = useState<WeatherInfo | null>(null);
 
   const success = (position: GeolocationPosition) => {
@@ -39,7 +37,7 @@ export default function Weather() {
     setLongitude(Number(position.coords.longitude.toFixed(2)));
   };
 
-  const getWeatherInfo = () => {
+  const getGeoLocation = () => {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(success);
     } else {
@@ -59,17 +57,11 @@ export default function Weather() {
       const weather: WeatherInfo = await response.json();
       setWeather(weather);
     }
-    if (latitude && longitude) getWeather();
+    getWeather();
   }, [latitude, longitude]);
 
   return (
-    <div
-      onClick={getWeatherInfo}
-      className='text-white rounded-lg font-black text-3xl flex flex-col gap-8 items-center justify-center lg:w-[40%] min-h-[150px] lg:h-[50%] bg-indigo-400 shadow-lg shadow-gray-400'
-    >
-      {!latitude && !longitude && (
-        <div className='cursor-pointer'>날씨 정보 불러오기</div>
-      )}
+    <div className='text-white rounded-lg font-black text-3xl flex flex-col gap-8 items-center justify-center lg:w-[40%] min-h-[150px] lg:h-[50%] bg-indigo-400 shadow-lg shadow-gray-400'>
       {latitude === -1 && longitude === -1 && (
         <div>현재 위치를 가져올 수 없음</div>
       )}
@@ -85,7 +77,15 @@ export default function Weather() {
             />
             <div className='lg:text-4xl'>{weather.temp.toFixed(1)}°C</div>
           </div>
-          <div className='text-xl'>{weather.name}</div>
+          <div className='text-2xl flex gap-4 items-center justify-center'>
+            <div>{weather.name}</div>
+            <div
+              className='cursor-pointer hover:text-gray-400'
+              onClick={getGeoLocation}
+            >
+              <CiUndo />
+            </div>
+          </div>
           <div className='py-4'>
             {getRunningWeatherCondition(
               weather.temp,
