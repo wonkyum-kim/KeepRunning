@@ -62,6 +62,7 @@ export default function Weather() {
 
   return (
     <div className='text-white rounded-lg font-black text-3xl flex flex-col gap-8 items-center justify-center lg:w-[40%] min-h-[150px] lg:h-[50%] bg-indigo-400 shadow-lg shadow-gray-400'>
+      {!weather && <div>날씨 정보를 불러오는 중...</div>}
       {latitude === -1 && longitude === -1 && (
         <div>현재 위치를 가져올 수 없음</div>
       )}
