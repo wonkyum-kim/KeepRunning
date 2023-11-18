@@ -5,9 +5,10 @@ interface InputProps {
   id: string;
   type: string;
   name: string;
+  register?: any;
 }
 
-export default function Input({ label, id, type, name }: InputProps) {
+export default function Input({ label, id, type, name, register }: InputProps) {
   return (
     <div className='flex flex-col gap-2 py-2'>
       <label
@@ -22,6 +23,7 @@ export default function Input({ label, id, type, name }: InputProps) {
         id={id}
         type={type}
         autoComplete={id}
+        {...register('id', { required: true })}
         className='
             form-input 
             block 

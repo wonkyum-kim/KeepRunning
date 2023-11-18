@@ -7,6 +7,11 @@ const nextConfig = {
         hostname: 'openweathermap.org',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        pathname: '/**',
+      },
     ],
   },
 };

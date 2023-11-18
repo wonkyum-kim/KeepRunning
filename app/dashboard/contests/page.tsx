@@ -1,4 +1,4 @@
-import { getContests } from '@/app/lib/contests-data';
+import { getContests } from '@/app/libs/contests-data';
 import Pagination from '@/app/ui/dashboard/contests/pagination';
 import Table from '@/app/ui/dashboard/contests/table';
 import { Suspense } from 'react';

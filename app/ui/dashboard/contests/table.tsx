@@ -1,6 +1,6 @@
 'use client';
 
-import type { Contest } from '@/app/lib/definitions';
+import type { Contest } from '@/app/libs/definitions';
 import { useRouter } from 'next/navigation';
 import { gothicA1 } from '../../fonts';
 

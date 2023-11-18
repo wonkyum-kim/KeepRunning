@@ -3,7 +3,7 @@
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
 import clsx from 'clsx';
 import Link from 'next/link';
-import { generatePagination } from '@/app/lib/utils';
+import { generatePagination } from '@/app/libs/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useMediaQuery } from 'usehooks-ts';
 

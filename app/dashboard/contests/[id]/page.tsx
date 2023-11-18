@@ -1,4 +1,4 @@
-import { getContestsById } from '@/app/lib/contest-id-data';
+import { getContestsById } from '@/app/libs/contest-id-data';
 import { blackHansSans, gothicA1 } from '@/app/ui/fonts';
 import Link from 'next/link';
 
