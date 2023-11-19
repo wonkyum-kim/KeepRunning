@@ -4,12 +4,20 @@ import Image from 'next/image';
 import { rowdies } from '../../fonts';
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useRouter } from 'next/navigation';
 
 export default function Shoes() {
   const percentage = 9.45;
 
+  const router = useRouter();
+
   return (
-    <div className='rounded-lg font-black flex flex-col gap-4 items-center justify-center w-full lg:w-[450px] h-[450px] bg-sky-500 shadow-lg shadow-gray-400'>
+    <div
+      onClick={() => {
+        router.push('/dashboard/shoes');
+      }}
+      className='cursor-pointer rounded-lg font-black flex flex-col gap-4 items-center justify-center w-full lg:w-[450px] h-[450px] bg-sky-500 shadow-lg shadow-gray-400'
+    >
       <div className='w-full h-[70px] p-4 text-white flex flex-col justify-start'>
         <div className='text-xl'>Puma</div>
         <div>Velocity Nitro 2</div>

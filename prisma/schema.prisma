@@ -18,8 +18,11 @@ model User {
 
 model Shoes {
   id            String    @id @default(cuid())
+  shoesId       String
   name          String
+  maker         String
   mileage       Int
   limit         Int
-  user User @relation(fields: [name], references: [id])
+  image         String
+  user User @relation(fields: [shoesId], references: [id])
 }
