@@ -1,10 +1,10 @@
-import { decode, encode } from '@googlemaps/polyline-codec';
+import { decode } from '@googlemaps/polyline-codec';
 
 async function reAuthorize() {
   const auth_link = 'https://www.strava.com/oauth/token';
   const response = await fetch(auth_link, {
     method: 'POST',
-    cache: 'no-store',
+    next: { revalidate: 3600 },
     headers: {
       'Content-Type': 'application/json;charset=utf-8',
     },
@@ -24,7 +24,7 @@ export async function getActivities() {
   const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${access_token}`;
 
   const response = await fetch(activities_link, {
-    cache: 'no-store',
+    next: { revalidate: 3600 },
   });
 
   const result = await response.json();
