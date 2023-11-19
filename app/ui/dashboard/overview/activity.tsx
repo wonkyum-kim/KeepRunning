@@ -1,14 +1,27 @@
 'use client';
 
 import { useSession } from 'next-auth/react';
+import { MapContainer, Polyline, TileLayer } from 'react-leaflet';
+import 'leaflet/dist/leaflet.css';
 
-export default function Activity() {
-  const { data: session, status } = useSession();
-  if (status === 'loading') {
-    return 'Loading or not authenticated...';
-  }
-  if (status === 'authenticated') {
-    return <p>Signed in as {session?.user?.email}</p>;
-  }
-  return <div></div>;
+type Coordinates = [number, number];
+
+interface ActivityProps {
+  multiPolyline: Coordinates[] | null;
+}
+
+export default function Activity({ multiPolyline }: ActivityProps) {
+  const redOptions = { color: 'red' };
+
+  return (
+    <MapContainer center={[37.56, 126.91]} zoom={13} scrollWheelZoom={false}>
+      <TileLayer
+        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
+      />
+      {multiPolyline && (
+        <Polyline pathOptions={redOptions} positions={multiPolyline} />
+      )}
+    </MapContainer>
+  );
 }

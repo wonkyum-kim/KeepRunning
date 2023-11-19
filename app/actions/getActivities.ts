@@ -1,3 +1,5 @@
+import { decode, encode } from '@googlemaps/polyline-codec';
+
 async function reAuthorize() {
   const auth_link = 'https://www.strava.com/oauth/token';
   const response = await fetch(auth_link, {
@@ -26,5 +28,10 @@ export async function getActivities() {
   });
 
   const result = await response.json();
+
+  for (let i = 0; i < result.length; ++i) {
+    const encoded = result[i].map.summary_polyline;
+    result[i].decoded = decode(encoded, 5);
+  }
   return result;
 }

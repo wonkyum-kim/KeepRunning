@@ -1,4 +1,10 @@
-import { Inter, Lusitana, Black_Han_Sans, Gothic_A1 } from 'next/font/google';
+import {
+  Inter,
+  Lusitana,
+  Black_Han_Sans,
+  Gothic_A1,
+  Rowdies,
+} from 'next/font/google';
 
 export const inter = Inter({ subsets: ['latin'] });
 
@@ -13,6 +19,11 @@ export const blackHansSans = Black_Han_Sans({
 });
 
 export const gothicA1 = Gothic_A1({
+  weight: '400',
+  preload: false,
+});
+
+export const rowdies = Rowdies({
   weight: '400',
   preload: false,
 });

@@ -1,7 +1,6 @@
 import { getContests } from '@/app/libs/contests-data';
-import type { Contest } from '@/app/libs/definitions';
 
-export default async function ContestList() {
+export default async function ContestCalender() {
   const data = await getContests();
   const {
     place: oriPlace,
@@ -29,15 +28,17 @@ export default async function ContestList() {
   const name = oriContest.slice(startIndex, endIndex);
 
   return (
-    <div className='bg-red-300 text-white text-xl md:text-2xl p-4 rounded-lg flex flex-col gap-2 font-bold shadow-lg shadow-gray-400'>
+    <div className='bg-sky-200 w-full lg:w-[450px] h-[400px] text-white text-xl md:text-2xl p-4 rounded-lg flex flex-col gap-4 font-bold shadow-lg shadow-gray-400'>
       <div>대회 일정</div>
-      {date.map((item, index) => {
-        return (
-          <div key={name[index]}>
-            {item} {name[index]}
-          </div>
-        );
-      })}
+      <div className='flex flex-col gap-4'>
+        {date.map((item, index) => {
+          return (
+            <div key={name[index]} className='hover:bg-sky-100'>
+              {item} {name[index]}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }

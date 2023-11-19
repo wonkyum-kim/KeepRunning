@@ -61,7 +61,7 @@ export default function Weather() {
   }, [latitude, longitude]);
 
   return (
-    <div className='text-white rounded-lg font-black text-3xl flex flex-col gap-8 items-center justify-center min-h-[250px] bg-sky-300 shadow-lg shadow-gray-400'>
+    <div className='text-white rounded-lg font-black text-3xl flex flex-col gap-8 items-center justify-center w-full lg:w-[450px] h-[400px] bg-sky-300 shadow-lg shadow-gray-400'>
       {!weather && <div>날씨 정보를 불러오는 중...</div>}
       {latitude === -1 && longitude === -1 && (
         <div>현재 위치를 가져올 수 없음</div>

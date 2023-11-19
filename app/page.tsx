@@ -17,9 +17,12 @@ export default function Home() {
           <p className='text-gray-800 lg:text-lg xl:text-2xl md:leading-loose'>
             <strong>러닝</strong> 계획을 정하고 성과를 기록해보세요.
           </p>
-          <button className='bg-blue-500 hover:bg-blue-400 text-white w-60 h-14 rounded-lg lg:text-lg xl:text-2xl'>
+          <Link
+            href='/dashboard'
+            className='bg-blue-500 hover:bg-blue-400 text-white w-60 h-14 rounded-lg lg:text-lg xl:text-2xl flex items-center justify-center'
+          >
             지금 시작해보기
-          </button>
+          </Link>
         </div>
         <div className='w-full h-full relative'>
           <Image
