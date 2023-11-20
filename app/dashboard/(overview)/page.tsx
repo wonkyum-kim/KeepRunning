@@ -1,7 +1,7 @@
 import Weather from '@/app/ui/dashboard/overview/weather';
 import ContestCalender from '@/app/ui/dashboard/overview/contestCalender';
 import RunningRecord from '@/app/ui/dashboard/overview/runningRecord';
-import Shoes from '@/app/ui/dashboard/overview/shoes';
+import Shoes from '@/app/ui/dashboard/shoes/shoes';
 
 // 날씨, 신발, 활동, 다가오는 대회...
 export default async function Page() {

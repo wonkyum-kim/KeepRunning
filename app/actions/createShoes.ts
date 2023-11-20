@@ -4,12 +4,14 @@ import prisma from '@/app/libs/prismadb';
 
 export async function createShoes(formData: FormData) {
   const name = formData.get('shoesName')?.toString();
-  const maker = formData.get('maker')?.toString();
+  const maker = formData.get('shoesMaker')?.toString();
   const image = formData.get('shoesImage')?.toString();
 
   if (!name || !image || !maker) {
     return null;
   }
+
+  console.log(name, maker, image);
 
   const shoes = await prisma.user.update({
     where: {
