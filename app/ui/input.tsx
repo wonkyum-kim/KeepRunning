@@ -30,6 +30,7 @@ export default function Input({ id, label, type }: InputProps) {
             focus:ring-sky-600 
             sm:text-sm 
             sm:leading-
+            pl-4
         '
       />
     </div>

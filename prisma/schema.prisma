@@ -24,5 +24,6 @@ model Shoes {
   mileage       Int
   limit         Int
   image         String
+  accTime       Int
   user User @relation(fields: [shoesId], references: [id])
 }

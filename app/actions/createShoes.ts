@@ -11,8 +11,6 @@ export async function createShoes(formData: FormData) {
     return null;
   }
 
-  console.log(name, maker, image);
-
   const shoes = await prisma.user.update({
     where: {
       name: '김원겸',
@@ -25,6 +23,7 @@ export async function createShoes(formData: FormData) {
           image: image,
           mileage: 0,
           limit: 500,
+          accTime: 0,
         },
       },
     },

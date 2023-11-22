@@ -4,6 +4,7 @@ import {
   Black_Han_Sans,
   Gothic_A1,
   Rowdies,
+  Lato,
 } from 'next/font/google';
 
 export const inter = Inter({ subsets: ['latin'] });
@@ -25,5 +26,11 @@ export const gothicA1 = Gothic_A1({
 
 export const rowdies = Rowdies({
   weight: '400',
+  preload: false,
+});
+
+export const lato = Lato({
+  weight: '900',
+  style: 'italic',
   preload: false,
 });

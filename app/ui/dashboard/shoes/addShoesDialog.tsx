@@ -7,15 +7,18 @@ import {
   DialogClose,
 } from '@/components/ui/dialog';
 
-import AddShoesButton from './addShoesButton';
 import Input from '../../input';
 import { createShoes } from '@/app/actions/createShoes';
+
+// TODO:
 
 export default function AddShoesDialog() {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <AddShoesButton />
+        <button className='bg-indigo-400 text-white rounded-lg w-[120px] h-12 text-sm md:text-md'>
+          신발 등록
+        </button>
       </DialogTrigger>
       <DialogContent className='sm:max-w-[425px]'>
         <DialogHeader>
