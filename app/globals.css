@@ -86,5 +86,5 @@ body,
 }
 
 .leaflet-container {
-  min-height: 250px;
+  min-height: 100%;
 }

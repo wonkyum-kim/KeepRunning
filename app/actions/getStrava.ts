@@ -19,7 +19,7 @@ async function reAuthorize() {
   return response.json();
 }
 
-export async function getActivities() {
+export async function getStrava() {
   const { access_token } = await reAuthorize();
   const activities_link = `https://www.strava.com/api/v3/athlete/activities?access_token=${access_token}`;
 

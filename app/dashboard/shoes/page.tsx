@@ -6,30 +6,37 @@ import Shoes from '@/app/ui/dashboard/shoes/shoes';
 import { useState } from 'react';
 import { useQuery } from '@tanstack/react-query';
 
-// const activities = (await getActivities()).map((record: any) => {
-//   return {
-//     time: record.moving_time,
-//     distance: record.distance / 1000,
-//     date: record.start_date_local,
-//   };
-// });
-
 export default function ShoesPage() {
-  // get shoes...
+  // get shoes
   const { data: shoes } = useQuery({
     queryKey: ['shoes'],
     queryFn: async () => {
-      const response = await fetch('/api/getShoes');
+      const response = await fetch('/api/getShoes', {
+        next: { revalidate: 600 },
+      });
       const data = await response.json();
       return data;
     },
   });
 
-  const [selected, setSelected] = useState(shoes[1].name);
+  const [selected, setSelected] = useState('');
+
+  if (!shoes) {
+    return null;
+  }
 
   const currentShoes = shoes.filter((item: any) => {
     return item.name === selected;
   });
+
+  // get activities
+  // const activities = (await getActivities()).map((record: any) => {
+  //   return {
+  //     time: record.moving_time,
+  //     distance: record.distance / 1000,
+  //     date: record.start_date_local,
+  //   };
+  // });
 
   return (
     <div className='w-full p-5 flex flex-col gap-4'>
@@ -49,7 +56,7 @@ export default function ShoesPage() {
             <div className='text-md text-gray-500'>목표 거리</div>
           </div>
           <div className='flex flex-col text-center'>
-            <div>3.5%</div>
+            <div>0%</div>
             <div className='text-md text-gray-500'>진행률</div>
           </div>
         </div>

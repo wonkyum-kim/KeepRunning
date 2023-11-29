@@ -9,11 +9,11 @@ interface ActivityProps {
   multiPolyline: Coordinates[] | null;
 }
 
-export default function Activity({ multiPolyline }: ActivityProps) {
+export default function Map({ multiPolyline }: ActivityProps) {
   const redOptions = { color: 'red' };
 
   return (
-    <MapContainer center={[37.56, 126.91]} zoom={13} scrollWheelZoom={false}>
+    <MapContainer center={[37.56, 126.91]} zoom={13} scrollWheelZoom={true}>
       <TileLayer
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         url='https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
