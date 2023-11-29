@@ -1,9 +1,14 @@
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
 import Weather from '@/app/ui/dashboard/overview/weather';
 import Summary from '@/app/ui/dashboard/overview/summary';
-import Map from '@/app/ui/dashboard/overview/map';
 import { getStrava } from '@/app/actions/getStrava';
+import { Skeleton } from '@/components/ui/skeleton';
+const Map = dynamic(() => import('@/app/ui/dashboard/overview/map'), {
+  ssr: false,
+  loading: () => <Skeleton className='w-full h-full' />,
+});
 
 export default async function Page() {
   const strava = await getStrava();
