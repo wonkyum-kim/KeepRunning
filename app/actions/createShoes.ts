@@ -11,7 +11,7 @@ export async function createShoes(formData: FormData) {
     return null;
   }
 
-  const shoes = await prisma.user.update({
+  await prisma.user.update({
     where: {
       name: '김원겸',
     },

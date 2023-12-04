@@ -30,7 +30,7 @@ export default function Shoes({
           <>
             <div className='text-xl'>{maker}</div>
             <div>{name}</div>
-            <EditShoesDialog />
+            <EditShoesDialog name={name} />
           </>
         )}
       </div>

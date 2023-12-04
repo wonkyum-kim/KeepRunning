@@ -19,11 +19,20 @@ model User {
 model Shoes {
   id            String    @id @default(cuid())
   shoesId       String
-  name          String
+  name          String    @unique
   maker         String
   mileage       Int
   limit         Int
   image         String
   accTime       Int
+  records       Records[]
   user User @relation(fields: [shoesId], references: [id])
+}
+
+model Records {
+  id            String @id @default(cuid())
+  recordsId     String
+  date          String
+  shoesName     String
+  shoes Shoes @relation(fields: [recordsId], references: [id])
 }
