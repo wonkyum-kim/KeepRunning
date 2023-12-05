@@ -1,5 +1,5 @@
 import { type NextRequest } from 'next/server';
-import { type WeatherInfo } from '@/app/types/weather-info';
+import { WeatherInfo } from '@/app/ui/dashboard/overview/weather';
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;

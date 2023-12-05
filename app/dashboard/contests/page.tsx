@@ -1,28 +1,21 @@
-import { getContests } from '@/app/libs/contests-data';
+import getContests from '@/app/actions/getContests';
 import Pagination from '@/app/ui/dashboard/contests/pagination';
 import Table from '@/app/ui/dashboard/contests/table';
-import { Suspense } from 'react';
 
 export default async function ContestsPage({
   searchParams,
 }: {
   searchParams?: {
-    length?: string;
-    onGoing?: string;
     page?: string;
   };
 }) {
-  const length = searchParams?.length || '';
-  //   const onGoing = searchParams?.onGoing || '';
   const currentPage = Number(searchParams?.page) || 1;
   const data = await getContests();
   const totalPages = Math.ceil(data.place.length / 10);
 
   return (
     <div className='w-full flex flex-col gap-4 p-5'>
-      <Suspense key={currentPage}>
-        <Table currentPage={currentPage} data={data} />
-      </Suspense>
+      <Table currentPage={currentPage} data={data} />
       <div className='flex items-center justify-center py-8'>
         <Pagination totalPages={totalPages} />
       </div>

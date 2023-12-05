@@ -1,10 +1,13 @@
 'use client';
 
+import { useQuery } from '@tanstack/react-query';
+import { useState } from 'react';
+
 import AddShoesDialog from '@/app/ui/dashboard/shoes/addShoesDialog';
 import SelectShoes from '@/app/ui/dashboard/shoes/selectShoes';
 import Shoes from '@/app/ui/dashboard/shoes/shoes';
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
+import { converToTimeFormat, padTwoDigits } from '@/app/libs';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export default function ShoesPage() {
   // get shoes
@@ -22,23 +25,20 @@ export default function ShoesPage() {
   const [selected, setSelected] = useState('');
 
   if (!shoes) {
-    return null;
+    return (
+      <div className='w-full p-5 flex flex-col gap-4'>
+        <Skeleton className='w-full h-24 bg-sky-300 rounded-lg flex items-center p-5 gap-4' />
+        <Skeleton className='w-full h-full bg-gray-50 flex flex-col gap-6 items-center justify-center rounded-lg' />
+      </div>
+    );
   }
 
   const currentShoes = shoes.filter((item: any) => {
     return item.name === selected;
   });
 
-  // accTime
-  function padTwoDigits(number: number) {
-    return String(number).padStart(2, '0');
-  }
-
   const totalTime = currentShoes[0]?.accTime;
-  const totalMin = Math.floor(totalTime / 60);
-  const sec = totalTime - totalMin * 60;
-  const hour = Math.floor(totalMin / 60);
-  const min = totalMin - hour * 60;
+  const [hour, min, sec] = converToTimeFormat(totalTime);
   const timeString = `
     ${padTwoDigits(hour)}:${padTwoDigits(min)}:${padTwoDigits(sec)}
   `;

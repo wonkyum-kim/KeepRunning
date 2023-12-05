@@ -1,8 +1,18 @@
 'use client';
 
-import type { Contest } from '@/app/libs/definitions';
 import { useRouter } from 'next/navigation';
-import { gothicA1 } from '../../fonts';
+
+import { gothicA1 } from '@/app/ui/fonts';
+
+type Contest = {
+  place: string[];
+  host: string[];
+  day: string[];
+  date: string[];
+  contest: string[];
+  length: string[];
+  id: string[];
+};
 
 interface TableProps {
   currentPage: number;

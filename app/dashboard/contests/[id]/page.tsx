@@ -1,5 +1,5 @@
-import { getContestsById } from '@/app/libs/contest-id-data';
 import { blackHansSans, gothicA1 } from '@/app/ui/fonts';
+import getContestById from '@/app/actions/getContestById';
 import Link from 'next/link';
 
 export default async function Page({
@@ -9,7 +9,7 @@ export default async function Page({
     id: string;
   };
 }) {
-  const { name, date, event, place, apply, desc, link } = await getContestsById(
+  const { name, date, event, place, apply, desc, link } = await getContestById(
     params.id
   );
 
@@ -17,9 +17,6 @@ export default async function Page({
   const a = new Date(`${dueDate[0]}-${dueDate[2]}-${dueDate[4]}`);
   const b = new Date();
   const isLate = a < b;
-
-  // const timeDiff = Math.abs(b - a);
-  // const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
 
   const splitted = desc.split('<br />').filter((sp) => sp !== '\r\n');
 

@@ -1,11 +1,12 @@
 'use client';
 
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from 'react-icons/ai';
-import clsx from 'clsx';
-import Link from 'next/link';
-import { generatePagination } from '@/app/libs/utils';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useMediaQuery } from 'usehooks-ts';
+import Link from 'next/link';
+import clsx from 'clsx';
+
+import { generatePagination } from '@/app/libs/utils';
 
 export default function Pagination({ totalPages }: { totalPages: number }) {
   const pathname = usePathname();

@@ -67,7 +67,6 @@ function getDescription(info: string) {
 }
 
 function getLink(info: string) {
-  // target="_new">www.jinma.co.kr</a></p>
   const pattern = /target="_new">(.*?)<\/a><\/p>/;
   const match = info.match(pattern);
   if (!match) {
@@ -76,7 +75,7 @@ function getLink(info: string) {
   return match[1];
 }
 
-export async function getContestsById(id: string) {
+export default async function getContestById(id: string) {
   const response = await marathonsById(id);
   const contestById = {
     name: getName(response),

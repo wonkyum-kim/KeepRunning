@@ -5,6 +5,8 @@ import Weather from '@/app/ui/dashboard/overview/weather';
 import Summary from '@/app/ui/dashboard/overview/summary';
 import { getStrava } from '@/app/actions/getStrava';
 import { Skeleton } from '@/components/ui/skeleton';
+import { pace } from '@/app/libs';
+
 const Map = dynamic(() => import('@/app/ui/dashboard/overview/map'), {
   ssr: false,
   loading: () => <Skeleton className='w-full h-full' />,
@@ -15,16 +17,13 @@ export default async function Page() {
   const lastRun = strava[0];
   const distance = (lastRun.distance / 1000).toFixed(2);
 
-  // run time
+  // TODO: import run time
   const runTime = Math.floor(lastRun.moving_time / 60);
   const hour = Math.floor(runTime / 60);
   const min = runTime % 60;
 
   // pace
-  const paceS_KM = lastRun.moving_time / (lastRun.distance / 1000);
-  const paceMin = Math.floor(paceS_KM / 60);
-  const temp = Math.floor(paceS_KM - paceMin * 60);
-  const paceSec = temp < 10 ? '0' + temp.toString() : temp.toString();
+  const [paceMin, paceSec] = pace(lastRun.moving_time, lastRun.distance);
 
   return (
     <div className='w-full min-h-full flex flex-col xl:flex-row gap-4 bg-[#f9f8f5] p-10'>
