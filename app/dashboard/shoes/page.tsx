@@ -63,11 +63,11 @@ export default function ShoesPage() {
             <div className='text-md text-gray-500'>운동 시간</div>
           </div>
           <div className='flex flex-col text-center'>
-            <div>{currentShoes[0]?.limit} km</div>
+            <div>{currentShoes[0]?.limit ?? 0} km</div>
             <div className='text-md text-gray-500'>목표 거리</div>
           </div>
           <div className='flex flex-col text-center'>
-            <div>{progress}%</div>
+            <div>{progress === 'NaN' ? 0 : progress}%</div>
             <div className='text-md text-gray-500'>진행률</div>
           </div>
         </div>

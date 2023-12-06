@@ -31,7 +31,7 @@ export default async function Page() {
         <Summary />
         <Weather />
       </div>
-      <div className='w-full xl:h-full h-[900px] bg-white rounded-lg'>
+      <div className='w-full xl:h-full h-[900px] bg-white rounded-lg shadow-lg shadow-gray-400'>
         <div className='w-full h-[25%] sm:h-[30%] flex flex-col items-center justify-center px-8 gap-4'>
           <div className='flex w-full gap-8 items-center'>
             <Image

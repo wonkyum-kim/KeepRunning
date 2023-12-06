@@ -16,7 +16,7 @@ const Links = [
 export default function Sidebar() {
   const pathname = usePathname();
   return (
-    <div className='flex flex-col w-full md:w-64 px-3 py-4 md:px-2 gap-2'>
+    <div className='flex flex-col w-full md:w-64 px-3 md:px-2 gap-2'>
       <Link
         href='/'
         className='flex h-20 w-full items-center justify-start pl-4 md:items-end md:justify-center rounded-md bg-blue-500 md:h-40 text-white text-3xl md:text-5xl font-bold md:p-2'

@@ -51,7 +51,7 @@ export default function Shoes({
           </CircularProgressbarWithChildren>
         </div>
         <div className={`${lato.className} antialiased text-5xl p-4 font-bold`}>
-          {mileage} km
+          {mileage ?? '?'} km
         </div>
       </div>
     </div>

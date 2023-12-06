@@ -27,7 +27,7 @@ export default async function Summary() {
   return (
     <div className='rounded-lg font-black flex flex-col gap-8 items-center justify-center flex-1 p-5 bg-white shadow-lg shadow-gray-400'>
       <div className='flex flex-col gap-4 w-full'>
-        <div className='text-gray-500'>최근 활동</div>
+        <div className='text-gray-500'>나의 최근 활동</div>
         <div>
           {strava[0].name} * {lastRunDateString}
         </div>
