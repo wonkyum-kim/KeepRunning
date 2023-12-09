@@ -76,7 +76,7 @@ Strava에서 polyline은 시간에 따라서 내가 있던 위치의 좌표를 �
 
 ( 웹에서도 직접 해볼 수 있다. https://developers.google.com/maps/documentation/utilities/polylineutility?hl=ko )
 
-# 국내 마라톤 대회 일정
+## 국내 마라톤 대회 일정
 
 언젠가 나도 나갈 수 있을 마라톤 대회 일정들을 가져오기 위해 마라톤 온라인 홈페이지를 파싱하는 작업을 진행하였다.
 
@@ -99,7 +99,7 @@ async function marathons() {
 
 이후 파싱 과정은 다른 라이브러리를 사용해볼 수도 있었지만, GPT가 어디까지 도와주는지 궁금해서 사용하다 보니 정규 표현식으로 해결할 수 있었다.
 
-# 날씨
+## 날씨
 
 여름에 달리기를 시작한 사람으로서 가장 걱정되는 부분은 겨울 날씨였다.
 
