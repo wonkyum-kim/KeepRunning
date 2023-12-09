@@ -26,7 +26,7 @@ export default async function Page() {
   const [paceMin, paceSec] = pace(lastRun.moving_time, lastRun.distance);
 
   return (
-    <div className='w-full min-h-full flex flex-col xl:flex-row gap-4 bg-[#f9f8f5] p-10'>
+    <div className='md:w-full min-h-full flex flex-col xl:flex-row gap-4 bg-[#f9f8f5] p-10 md:m-0 m-4 rounded-lg'>
       <div className='w-full xl:w-[40%] h-full xl:h-full flex flex-col gap-4'>
         <Summary />
         <Weather />
