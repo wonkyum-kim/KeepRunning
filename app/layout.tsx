@@ -3,6 +3,17 @@ import { inter } from '@/app/ui/fonts';
 import './globals.css';
 
 export const metadata: Metadata = {
+  openGraph: {
+    title: 'Keep Running',
+    description: '나의 달린 기록을 확인하고 대회 정보를 얻어보자.',
+    type: 'website',
+    images: [
+      {
+        url: '/together.png',
+        alt: 'togheter',
+      },
+    ],
+  },
   title: 'Keep Running',
   description: '달린 기록을 확인하고 대회 정보를 알아봅시다.',
   icons: {
