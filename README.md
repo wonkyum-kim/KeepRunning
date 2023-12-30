@@ -66,8 +66,6 @@ hydration 에러가 발생하는 이유는 지도가 서버에서 pre-render 된
 
 나는 더 간단한 두 번째 방법으로 Next.js에서 제공하는 lazy loading을 사용하여 SSR을 하지 않는 방법을 선택해서 해결하였고 fallback도 넣어주었다.
 
-- [서버 사이드 렌더링 3 - Hydration](https://github.com/wonkyum-kim/WebStudy/blob/main/frontend/React/%EC%84%9C%EB%B2%84%20%EC%82%AC%EC%9D%B4%EB%93%9C%20%EB%A0%8C%EB%8D%94%EB%A7%81/%EC%84%9C%EB%B2%84%20%EC%82%AC%EC%9D%B4%EB%93%9C%20%EB%A0%8C%EB%8D%94%EB%A7%81%203%20-%20Hydration.md)
-
 ## polyline
 
 Strava에서 polyline은 시간에 따라서 내가 있던 위치의 좌표를 문자열로 encode 해둔 것인데, 이를 지도에 표시하기 위해서 decode하는 과정이 필요하다.
@@ -85,8 +83,6 @@ php로 작성된 페이지였고, charset이 euc-kr로 처음보는 형태였다
 보통은 fetch API를 사용하면 응답을 json이나 text 형태로 변환하는데, 인코딩 형식이 euc-kr 라서 일반적인 방법으로 진행할 수 없었다.
 
 마침 얼마 전에 공부했던 TextDecoder가 떠올라서 응답을 `response.arrayBuffer()` 형태로 받아 온 다음, 디코딩을 진행하여 원하는 HTML 문자열을 얻을 수 있었다.
-
-- [5. ArrayBuffer](https://github.com/wonkyum-kim/WebStudy/blob/main/frontend/JavaScript/5.%20ArrayBuffer.md#textdecoder)
 
 ```ts
 async function marathons() {
