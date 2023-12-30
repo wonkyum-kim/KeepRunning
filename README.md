@@ -14,8 +14,10 @@ npm run dev
 ## Tech
 
 - Next.js
+- TypeScript
 - Tailwind css
 - Prisma
+- shadcn/ui
 - Leaflet.js
 
 ## Keep Running을 만들기 시작한 계기
