@@ -1,5 +1,6 @@
 import { type NextRequest } from 'next/server';
-import { WeatherInfo } from '@/app/ui/dashboard/overview/weather';
+
+// api document: https://openweathermap.org/current#one
 
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
@@ -16,20 +17,25 @@ export async function GET(request: NextRequest) {
   const response = await fetch(url, { cache: 'no-store' });
   const result = await response.json();
 
+  // 현재 날씨
   const description = result.weather[0].description;
+  // 날씨 아이콘
   const icon = `https://openweathermap.org/img/wn/${result.weather[0].icon}@4x.png`;
-  const isRainning = Object.keys(result).includes('rain');
-  const isSnowing = Object.keys(result).includes('snow');
+  // 도시 이름
+  const name = result.name;
+  // 온도(Celsius)
+  const temp = result.main.temp.toFixed(0);
+  // 풍속(m/s)
+  const windSpeed = result.wind.speed.toFixed(0);
+  // 강수량 (1h, mm)
+  const rain = result?.rain?.['1h'].toFixed(0);
 
-  const returnVal: WeatherInfo = {
-    ...result.main,
-    ...result.wind,
-    name: result.name,
+  return Response.json({
     description,
     icon,
-    rain: isRainning,
-    snow: isSnowing,
-  };
-
-  return Response.json(returnVal);
+    name,
+    temp,
+    windSpeed,
+    rain,
+  });
 }
