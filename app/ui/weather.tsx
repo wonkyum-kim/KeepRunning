@@ -13,13 +13,13 @@ export default function Weather() {
         <>
           <Image
             src={weather.icon}
-            width={50}
-            height={50}
+            width={40}
+            height={40}
             alt={weather.description}
             className='md:w-[100px] md:h-[100px]'
           />
           <div className='w-full h-full flex flex-col items-center justify-center md:gap-4'>
-            <div className='w-full text-xs md:text-lg flex items-center justify-around'>
+            <div className='w-full text-[0.5rem] md:text-lg flex items-center justify-around'>
               <div className='flex items-center'>
                 <Thermometer color='red' fill='red' /> {weather.temp}°C
               </div>
