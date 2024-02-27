@@ -1,20 +1,21 @@
 'use client';
 
-import { ChangeEventHandler, MouseEventHandler, RefObject } from 'react';
-import html2canvas from 'html2canvas';
-import saveAs from 'file-saver';
+import { ChangeEventHandler, MouseEventHandler } from 'react';
+import getCroppedImg from '../cropImage';
 
-// https://yong-nyong.tistory.com/53
-
-interface UploadAndDownloadImageProps {
-  changeSrc: (input: string) => void;
-  refObj: RefObject<HTMLDivElement>;
+interface SubmitButtonsProps {
+  imageSrc: string;
+  croppedAreaPixels: any;
+  uploadImageLink: (link: string) => void;
+  uploadCroppedImageLink: (link: string) => void;
 }
 
-export default function UploadAndDownloadImage({
-  changeSrc,
-  refObj,
-}: UploadAndDownloadImageProps) {
+export default function SubmitButtons({
+  imageSrc,
+  uploadImageLink,
+  uploadCroppedImageLink,
+  croppedAreaPixels,
+}: SubmitButtonsProps) {
   const handleUpload: ChangeEventHandler<HTMLInputElement> = (event) => {
     if (event.target.files && event.target.files.length) {
       const file = event.target.files[0];
@@ -22,7 +23,7 @@ export default function UploadAndDownloadImage({
       const reader = new FileReader();
       // 파일 읽어온 후 실행되는 콜백함수
       reader.onload = (e) => {
-        changeSrc(e.target!.result as string);
+        uploadImageLink(e.target!.result as string);
       };
       // 파일 객체를 읽어 base64 형태의 문자열로 변환
       reader.readAsDataURL(file);
@@ -33,21 +34,16 @@ export default function UploadAndDownloadImage({
     event
   ) => {
     event.preventDefault();
-    if (!refObj.current) return;
     try {
-      const canvas = await html2canvas(document.body);
-      canvas.toBlob((blob) => {
-        if (blob) {
-          saveAs(blob, 'result.png');
-        }
-      });
-    } catch {
-      console.log('error');
+      const croppedImage = await getCroppedImg(imageSrc, croppedAreaPixels, 0);
+      uploadCroppedImageLink(croppedImage);
+    } catch (error) {
+      console.error(error);
     }
   };
 
   return (
-    <form className='flex gap-2'>
+    <form className='flex gap-4 w-full place-content-end pb-4'>
       <label
         htmlFor='upload'
         className='bg-blue-500 text-white px-4 py-2 rounded-lg font-bold'
@@ -59,6 +55,7 @@ export default function UploadAndDownloadImage({
         onChange={handleUpload}
         id='upload'
         className='hidden'
+        accept='image/*'
       />
       <button
         id='download'
