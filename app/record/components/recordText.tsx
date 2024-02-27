@@ -24,13 +24,14 @@ export default function RecordText({ record }: { record: Record }) {
   return (
     <div
       className={clsx(
-        'absolute flex select-none leading-none italic gap-4 justify-center w-full',
+        'absolute flex select-none leading-none italic gap-4 justify-center',
         !isBlack && 'text-white',
         isBottom && 'bottom-4',
         !isBottom && 'top-4',
         isRight && isCol && 'right-4 text-right',
         !isRight && isCol && 'left-4',
-        isCol && 'flex-col w-fit'
+        isCol && 'flex-col',
+        !isCol && 'w-full'
       )}
     >
       <TextComponent val1={'거리'} val2={`${record.km}km`} />
