@@ -1,22 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useGeoLocation } from './useGeoLocation';
 
 export type WeatherInfo = {
-  temp: number;
-  feels_like: number;
-  temp_min: number;
-  temp_max: number;
-  pressure: number;
-  humidity: number;
-  speed: number;
-  deg: number;
   description: string;
   icon: string;
-  name: string;
-  rain: boolean;
-  snow: boolean;
+  temp: number;
+  windSpeed: number;
+  rain?: number;
 };
 
 const geolocationOptions = {
@@ -28,8 +20,23 @@ const geolocationOptions = {
 export default function useWeahter() {
   const { location, error } = useGeoLocation(geolocationOptions);
   const [weather, setWeather] = useState<WeatherInfo | null>(null);
-  // TODO: get weather
-  console.log(location, error);
+
+  useEffect(() => {
+    async function getWeather() {
+      const response = await fetch(
+        `/api/weather?latitude=${location?.latitude.toFixed(
+          2
+        )}&longitude=${location?.longitude.toFixed(2)}`,
+        {
+          cache: 'no-store',
+        }
+      );
+      const weather = await response.json();
+      setWeather(weather);
+    }
+    if (!location?.latitude || !location?.longitude) return;
+    getWeather();
+  }, [location?.latitude, location?.longitude]);
 
   return weather;
 }

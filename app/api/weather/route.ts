@@ -21,8 +21,6 @@ export async function GET(request: NextRequest) {
   const description = result.weather[0].description;
   // 날씨 아이콘
   const icon = `https://openweathermap.org/img/wn/${result.weather[0].icon}@4x.png`;
-  // 도시 이름
-  const name = result.name;
   // 온도(Celsius)
   const temp = result.main.temp.toFixed(0);
   // 풍속(m/s)
@@ -33,7 +31,6 @@ export async function GET(request: NextRequest) {
   return Response.json({
     description,
     icon,
-    name,
     temp,
     windSpeed,
     rain,
