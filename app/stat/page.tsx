@@ -6,7 +6,7 @@ export default function Stat() {
   return (
     <div className='w-full min-h-[720px]'>
       <div>
-        <h1 className='text-xl font-bold pb-4'>러닝 통계</h1>
+        <h1 className='text-xl font-bold pb-4'>📌 러닝 통계</h1>
         <p className='bg-[#eee] rounded-lg p-4'>
           당신의 달리기 시간을 동료 주자들의 시간과 비교해보세요.
           <br />
