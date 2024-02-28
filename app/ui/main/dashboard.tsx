@@ -20,11 +20,11 @@ export default function Dashboard() {
           <div>기록 인증</div>
         </Link>
         <Link
-          href={'/stat'}
+          href={'/mileage'}
           className='flex flex-col items-center justify-center select-none'
         >
-          <div>📌</div>
-          <div>통계</div>
+          <div>📝</div>
+          <div>마일리지</div>
         </Link>
         <Link
           href={'/more'}
