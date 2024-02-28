@@ -24,7 +24,7 @@ export default function Weather() {
                 <Thermometer color='red' fill='red' /> {weather.temp}°C
               </div>
               <div className='flex items-center'>
-                <Wind color='blue' /> {weather.windSpeed}m/s
+                <Wind color='blue' /> {weather.speed}m/s
               </div>
               <div className='flex items-center'>
                 <Droplet color='#93c5fd' fill='#93c5fd' /> {weather.rain ?? 0}mm

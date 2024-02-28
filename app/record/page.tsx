@@ -8,6 +8,7 @@ import SubmitButtons from './components/submitButtons';
 import InputButtons from './components/inputButtons';
 import { HiddenImage } from './components/hiddenImage';
 import SettingButtons from './components/settingButtons';
+import useWeahter from '../hooks/useWeather';
 
 export type Record = {
   km: string;
@@ -17,6 +18,9 @@ export type Record = {
 };
 
 export default function Record() {
+  // test
+
+  const test = useWeahter();
   const [imageSrc, setImageSrc] = useState<string>('/test.png');
   const [croppedImageSrc, setCroppedImageSrc] = useState('/test.png');
   const [croppedAreaPixels, setCroppedAreaPixels] = useState(null);

@@ -43,8 +43,8 @@ export default function RootLayout({
           </Link>
           <Weather />
         </div>
-        <Dashboard />
         {children}
+        <Dashboard />
       </body>
     </html>
   );
