@@ -7,12 +7,8 @@ const STORE_NAME = 'mileage';
 
 function openIndexedDB() {
   return new Promise<IDBDatabase>((resolve, reject) => {
-    const idb =
-      window.indexedDB ||
-      window.mozIndexedDB ||
-      window.webkitIndexedDB ||
-      window.msIndexedDB ||
-      window.shimIndexedDB;
+    const idb = window.indexedDB;
+
     const request = idb.open(DB_NAME, 2);
 
     request.onerror = () => {
