@@ -1,10 +1,6 @@
 const DB_NAME = 'keep-running';
 const STORE_NAME = 'mileage';
 
-// https://dev.to/andyhaskell/testing-your-indexeddb-code-with-jest-2o17
-// https://ko.javascript.info/indexeddb#ref-467
-// https://bloodstrawberry.tistory.com/1265
-
 function openIndexedDB() {
   return new Promise<IDBDatabase>((resolve, reject) => {
     const idb = window.indexedDB;

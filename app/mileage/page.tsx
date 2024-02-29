@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useShoesModalStore } from '../store/shoesModalStore';
 import { useMileageStore, type Shoes } from '../store/mileageStore';
 import Modal from '../ui/modal/Modal';
@@ -8,20 +8,6 @@ import { getAllDataFromIndexedDB } from '../libs/idb';
 import Dashboard from './components/dashboard';
 import AddForm from './components/addForm';
 import ShoesCard from './components/shoesCard';
-
-// TODO: 삭제 기능 수정
-
-/*
-    selectedShoes = {
-      id: 'null',
-      maker: 'null',
-      name: 'null',
-      acc: 0,
-      goal: 0,
-      imageSrc: 'null',
-      created: new Date(),
-    };
-*/
 
 export default function Mileage() {
   const isOpen = useShoesModalStore((state) => state.isOpen);
