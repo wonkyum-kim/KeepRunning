@@ -1,3 +1,13 @@
+export type Contest = {
+  place: string[];
+  host: string[];
+  day: string[];
+  date: string[];
+  names: string[];
+  types: string[];
+  id: string[];
+};
+
 async function marathons() {
   const response = await fetch('http://www.roadrun.co.kr/schedule/list.php', {
     cache: 'no-store',
@@ -119,9 +129,9 @@ export default async function getContests() {
   const host = getHosts(data) as string[];
   const day = getDayOfTheWeek(data) as string[];
   const date = getDate(data) as string[];
-  const contest = getContest(data) as string[];
-  const length = getLength(data) as string[];
+  const names = getContest(data) as string[];
+  const types = getLength(data) as string[];
   const id = getContestId(data) as string[];
 
-  return { place, host, day, date, contest, length, id };
+  return { place, host, day, date, names, types, id };
 }
