@@ -46,7 +46,7 @@ export default function SubmitButtons({
     <form className='flex gap-4 w-full place-content-end pb-4'>
       <label
         htmlFor='upload'
-        className='bg-blue-500 text-white px-4 py-2 rounded-lg font-bold'
+        className='bg-blue-500 text-white px-4 py-2 rounded-lg font-bold cursor-pointer'
       >
         사진 업로드
       </label>
