@@ -24,7 +24,7 @@ export default function Stat() {
         </p>
       </div>
       <iframe
-        className='w-full h-full'
+        className='w-full min-h-[720px]'
         src='https://runrepeat.com/calculator/runner-performance'
       ></iframe>
     </div>
