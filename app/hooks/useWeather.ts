@@ -24,9 +24,7 @@ export default function useWeahter() {
   useEffect(() => {
     async function getWeather() {
       const response = await fetch(
-        `/api/weather?latitude=${location?.latitude.toFixed(
-          2
-        )}&longitude=${location?.longitude.toFixed(2)}`,
+        `/api/weather?latitude=${location?.latitude}&longitude=${location?.longitude}`,
         {
           cache: 'no-store',
         }
