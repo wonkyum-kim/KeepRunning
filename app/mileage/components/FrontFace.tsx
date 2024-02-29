@@ -1,22 +1,28 @@
+'use client';
+
 import Image from 'next/image';
-import { ShoesProps } from '../page';
 import styles from './shoesCard.module.css';
+import { deleteDataToIndexedDB, getAllDataFromIndexedDB } from '@/app/libs/idb';
+import { Shoes, useMileageStore } from '@/app/store/mileageStore';
 
-type FrontFaceProps = Pick<
-  ShoesProps,
-  'maker' | 'name' | 'imageSrc' | 'acc' | 'goal'
->;
+export default function FrontFace() {
+  const selectedShoes = useMileageStore((state) => state.selectedShoes);
+  const setSelectedShoes = useMileageStore((state) => state.setSelectedShoes);
+  const setAllShoes = useMileageStore((state) => state.setAllShoes);
 
-export default function FrontFace({
-  maker,
-  name,
-  imageSrc,
-  acc,
-  goal,
-}: FrontFaceProps) {
-  const deleteHandler = () => {
-    // TODO
+  const deleteHandler = async () => {
+    const success = await deleteDataToIndexedDB(id);
+    const result = await getAllDataFromIndexedDB<Shoes>();
+    if (success) {
+      setAllShoes(result);
+      setSelectedShoes(result.length === 0 ? null : result[0]);
+    }
   };
+
+  if (!selectedShoes) return;
+
+  const { maker, name, imageSrc, acc, goal, id } = selectedShoes;
+
   return (
     <div className={styles.card__face}>
       <div className='bg-sky-500 w-full py-2 px-4 flex flex-col relative rounded-lg'>

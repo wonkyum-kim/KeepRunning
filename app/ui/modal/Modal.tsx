@@ -1,6 +1,5 @@
 'use client';
 
-import { useShoeSelectModalStore } from '@/app/store/modalStore';
 import styles from './Modal.module.css';
 
 interface ModalProps {

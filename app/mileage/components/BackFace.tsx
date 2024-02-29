@@ -1,24 +1,29 @@
 'use client';
 
 import clsx from 'clsx';
-import { ShoesProps } from '../page';
 import styles from './shoesCard.module.css';
 import { editDataFromIndexedDB } from '@/app/libs/idb';
 import { useRef } from 'react';
+import { Shoes, useMileageStore } from '@/app/store/mileageStore';
 
-export default function BackFace({
-  acc,
-  goal,
-  id,
-}: Pick<ShoesProps, 'acc' | 'goal' | 'id'>) {
+export default function BackFace() {
+  // useRef
   const prevAccRef = useRef<HTMLInputElement>(null);
   const prevGoalRef = useRef<HTMLInputElement>(null);
   const addRef = useRef<HTMLInputElement>(null);
+
+  // store
+  const setSelectedShoes = useMileageStore((state) => state.setSelectedShoes);
+  const selectedShoes = useMileageStore((state) => state.selectedShoes);
+
+  if (!selectedShoes) return;
+  const { acc, goal, id } = selectedShoes;
+
   const editPrev = async (formData: FormData) => {
     const newAcc = +(formData.get('edit-acc') as string);
     const newGoal = +(formData.get('edit-goal') as string);
 
-    const success = await editDataFromIndexedDB<ShoesProps>(
+    const success = await editDataFromIndexedDB<Shoes>(
       { acc: newAcc, goal: newGoal, id },
       id
     );
@@ -26,6 +31,7 @@ export default function BackFace({
     if (success && prevAccRef.current && prevGoalRef.current) {
       prevAccRef.current.value = newAcc.toString();
       prevGoalRef.current.value = newGoal.toString();
+      setSelectedShoes({ ...selectedShoes, acc: newAcc, goal: newGoal });
       // TODO: Toast 적용
     }
   };
@@ -35,7 +41,7 @@ export default function BackFace({
     const addedMileage = +(formData.get('edit-add') as string);
     const newAcc = +prevAccRef.current.value + addedMileage;
 
-    const success = await editDataFromIndexedDB<ShoesProps>(
+    const success = await editDataFromIndexedDB<Shoes>(
       {
         acc: newAcc,
         id,
@@ -46,6 +52,7 @@ export default function BackFace({
     if (success && addRef.current) {
       prevAccRef.current.value = newAcc.toString();
       addRef.current.value = '0';
+      setSelectedShoes({ ...selectedShoes, acc: newAcc });
       // TODO: Toast 적용
     }
   };

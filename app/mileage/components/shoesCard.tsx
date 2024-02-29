@@ -1,15 +1,11 @@
 'use client';
 
-import type { ShoesProps } from '../page';
-import { MouseEventHandler, useState } from 'react';
-import styles from './shoesCard.module.css';
 import clsx from 'clsx';
+import { MouseEventHandler, useState } from 'react';
+import { useMileageStore } from '@/app/store/mileageStore';
+import styles from './shoesCard.module.css';
 import FrontFace from './FrontFace';
 import BackFace from './BackFace';
-
-interface ShoesCardProps {
-  shoes: ShoesProps;
-}
 
 function Card({
   children,
@@ -30,28 +26,25 @@ function Card({
   );
 }
 
-export default function ShoesCard({ shoes }: ShoesCardProps) {
+export default function ShoesCard() {
   const [isFront, setIsFront] = useState(true);
+  const selectedShoes = useMileageStore((state) => state.selectedShoes);
+
+  if (!selectedShoes) {
+    return <div>신발을 추가해주세요</div>;
+  }
 
   const handleFlip: MouseEventHandler = (event) => {
     if ((event.target as HTMLElement).id.includes('edit')) return;
     setIsFront((prev) => !prev);
   };
 
-  const { maker, name, imageSrc, acc, goal, id } = shoes;
-
   return (
     <div className={styles.background}>
       <div className={styles.scene}>
         <Card handleFlip={handleFlip} isFront={isFront}>
-          <FrontFace
-            maker={maker}
-            name={name}
-            imageSrc={imageSrc}
-            acc={acc}
-            goal={goal}
-          />
-          <BackFace acc={acc} goal={goal} id={id} />
+          <FrontFace />
+          <BackFace />
         </Card>
       </div>
     </div>

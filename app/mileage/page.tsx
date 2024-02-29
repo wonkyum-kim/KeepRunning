@@ -1,44 +1,17 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { useShoeSelectModalStore } from '../store/modalStore';
+import { useShoesModalStore } from '../store/shoesModalStore';
+import { useMileageStore, type Shoes } from '../store/mileageStore';
 import Modal from '../ui/modal/Modal';
 import { getAllDataFromIndexedDB } from '../libs/idb';
 import Dashboard from './components/dashboard';
 import AddForm from './components/addForm';
-import { useShoesStore } from '../store/shoesStore';
 import ShoesCard from './components/shoesCard';
 
-export interface ShoesProps {
-  id: string;
-  maker: string;
-  name: string;
-  acc: number;
-  goal: number;
-  imageSrc: string;
-  created: Date;
-}
+// TODO: 삭제 기능 수정
 
-export default function Mileage() {
-  const isOpen = useShoeSelectModalStore((state) => state.isOpen);
-  const selected = useShoesStore((state) => state.selected);
-  const [allShoes, setAllShoes] = useState<ShoesProps[]>([]);
-
-  useEffect(() => {
-    // indexedDB에서 신발을 모두 가져온다.
-    const getAllData = async () => {
-      const data = (await getAllDataFromIndexedDB()) as ShoesProps[];
-      setAllShoes(data);
-    };
-    getAllData();
-  }, [isOpen]);
-
-  let selectedShoes = allShoes.find((item) => {
-    return item.id === selected;
-  });
-
-  if (!selectedShoes && allShoes.length) selectedShoes = allShoes[0];
-  else if (!selectedShoes) {
+/*
     selectedShoes = {
       id: 'null',
       maker: 'null',
@@ -48,7 +21,23 @@ export default function Mileage() {
       imageSrc: 'null',
       created: new Date(),
     };
-  }
+*/
+
+export default function Mileage() {
+  const isOpen = useShoesModalStore((state) => state.isOpen);
+  const setAllShoes = useMileageStore((state) => state.setAllShoes);
+  const setSelectedShoes = useMileageStore((state) => state.setSelectedShoes);
+
+  useEffect(() => {
+    // indexedDB에서 신발을 모두 가져온다.
+    const getAllData = async () => {
+      const data = (await getAllDataFromIndexedDB()) as Shoes[];
+      // zustand에 저장한다.
+      setAllShoes(data);
+      setSelectedShoes(data.length === 0 ? null : data[0]);
+    };
+    getAllData();
+  }, [setAllShoes, setSelectedShoes]);
 
   return (
     <div className='flex flex-col gap-4 mb-[120px] md:mb-[50px]'>
@@ -60,7 +49,7 @@ export default function Mileage() {
         <br />
         🔜 더 많은 러닝화가 추가 예정될 예정입니다.
       </p>
-      <Dashboard allShoes={allShoes} />
+      <Dashboard />
       {isOpen && (
         <Modal
           title='새로운 신발 추가하기'
@@ -69,7 +58,7 @@ export default function Mileage() {
           <AddForm />
         </Modal>
       )}
-      <ShoesCard shoes={selectedShoes} />
+      <ShoesCard />
     </div>
   );
 }

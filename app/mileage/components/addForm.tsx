@@ -1,13 +1,16 @@
 'use client';
 
-import { addDataToIndexedDB } from '@/app/libs/idb';
-import { useShoeSelectModalStore } from '@/app/store/modalStore';
-import { shoesList } from '@/app/store/shoesList';
-import clsx from 'clsx';
 import { useState } from 'react';
+import clsx from 'clsx';
+import { addDataToIndexedDB, getAllDataFromIndexedDB } from '@/app/libs/idb';
+import { useShoesModalStore } from '@/app/store/shoesModalStore';
+import { shoesList } from '@/app/store/shoesList';
+import { Shoes, useMileageStore } from '@/app/store/mileageStore';
 
 export default function AddForm() {
-  const onClose = useShoeSelectModalStore((state) => state.onClose);
+  const onClose = useShoesModalStore((state) => state.onClose);
+  const setAllShoes = useMileageStore((state) => state.setAllShoes);
+  const setSelectedShoes = useMileageStore((state) => state.setSelectedShoes);
   const [maker, setMaker] = useState('푸마');
   const [error, setError] = useState(false);
 
@@ -33,9 +36,16 @@ export default function AddForm() {
       created: now,
     };
 
+    // idb에 저장
     await addDataToIndexedDB(newShoes);
+    // idb에서 불러옴
+    const result = await getAllDataFromIndexedDB<Shoes>();
+    // 재렌더링
+    setSelectedShoes(newShoes);
+    setAllShoes(result);
     onClose();
   };
+
   return (
     <form className='flex flex-col gap-4' action={addShoe}>
       <div className='flex gap-4 w-full'>
@@ -109,7 +119,9 @@ export default function AddForm() {
         <div className='right-2 absolute'>km</div>
       </div>
       <div className='w-full flex items-center justify-end gap-[12px]'>
-        <button className='bg-blue-300 py-2 px-4 rounded-lg'>추가</button>
+        <button type='submit' className='bg-blue-300 py-2 px-4 rounded-lg'>
+          추가
+        </button>
         <button className='bg-red-300 py-2 px-4 rounded-lg' onClick={onClose}>
           취소
         </button>
