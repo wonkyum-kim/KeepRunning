@@ -9,10 +9,6 @@ import AddForm from './components/addForm';
 import { useShoesStore } from '../store/shoesStore';
 import ShoesCard from './components/shoesCard';
 
-// https://dev.to/andyhaskell/testing-your-indexeddb-code-with-jest-2o17
-// https://ko.javascript.info/indexeddb#ref-467
-// https://bloodstrawberry.tistory.com/1265
-
 export interface ShoesProps {
   id: string;
   maker: string;

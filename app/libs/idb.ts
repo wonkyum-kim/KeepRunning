@@ -1,6 +1,10 @@
 const DB_NAME = 'keep-running';
 const STORE_NAME = 'mileage';
 
+// https://dev.to/andyhaskell/testing-your-indexeddb-code-with-jest-2o17
+// https://ko.javascript.info/indexeddb#ref-467
+// https://bloodstrawberry.tistory.com/1265
+
 function openIndexedDB() {
   return new Promise<IDBDatabase>((resolve, reject) => {
     const idb =
@@ -31,20 +35,20 @@ function openIndexedDB() {
   });
 }
 
-export async function addDataToIndexedDB(data: unknown) {
+export async function addDataToIndexedDB<T>(data: T): Promise<boolean> {
   const db = await openIndexedDB();
 
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     const transaction = db.transaction(STORE_NAME, 'readwrite');
     const objectStore = transaction.objectStore(STORE_NAME);
     const request = objectStore.put(data);
 
     request.onsuccess = () => {
-      resolve('data added!');
+      resolve(true);
     };
 
     request.onerror = () => {
-      console.log('request error');
+      reject(new Error('idb error'));
     };
 
     transaction.oncomplete = () => {
@@ -53,54 +57,89 @@ export async function addDataToIndexedDB(data: unknown) {
   });
 }
 
-// export async function getDataFromIndexedDB(key) {
-//   const db = await openIndexedDB();
+export async function editDataFromIndexedDB<T>(
+  data: Partial<T>,
+  key: string
+): Promise<boolean> {
+  const db = await openIndexedDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(STORE_NAME, 'readwrite');
+    const objectStore = transaction.objectStore(STORE_NAME);
 
-//   return new Promise((resolve, reject) => {
-//     const transaction = db.transaction(STORE_NAME, 'readonly');
-//     const objectStore = transaction.objectStore(STORE_NAME);
+    const getRequest = objectStore.get(key);
 
-//     const request = objectStore.get(key);
+    getRequest.onsuccess = () => {
+      // 이전 데이터를 가져온다.
+      const oldData = getRequest.result as T;
+      // 수정된 데이터를 만든다.
+      const newData = { ...oldData, ...data };
+      // 수정된 데이터를 저장한다.
+      const updateRequest = objectStore.put(newData);
+      updateRequest.onsuccess = () => {
+        resolve(true);
+      };
+      updateRequest.onerror = () => {
+        reject(new Error('idb error'));
+      };
+    };
 
-//     request.onsuccess = (e) => {
-//       const data = e.target.result;
-//       resolve(data);
-//     };
+    getRequest.onerror = () => {
+      reject(new Error('idb error'));
+    };
 
-//     request.onerror = (e) => {
-//       reject('error', e);
-//     };
+    transaction.oncomplete = () => {
+      db.close();
+    };
+  });
+}
 
-//     transaction.oncomplete = () => {
-//       db.close();
-//     };
-//   });
-// }
+export async function getDataFromIndexedDB<T>(key: string): Promise<T> {
+  const db = await openIndexedDB();
 
-// export async function deleteDataToIndexedDB(key) {
-//   const db = await openIndexedDB();
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(STORE_NAME, 'readonly');
+    const objectStore = transaction.objectStore(STORE_NAME);
+    const request = objectStore.get(key);
 
-//   return new Promise((resolve, reject) => {
-//     const transaction = db.transaction(STORE_NAME, 'readwrite');
-//     const objectStore = transaction.objectStore(STORE_NAME);
+    request.onsuccess = () => {
+      const data: T = request.result;
+      resolve(data);
+    };
 
-//     const request = objectStore.delete(key);
-//     console.log(request);
-//     request.onsuccess = () => {
-//       resolve('delete ok!');
-//     };
+    request.onerror = () => {
+      reject(new Error('idb error'));
+    };
 
-//     request.onerror = (e) => {
-//       reject('error', e);
-//     };
+    transaction.oncomplete = () => {
+      db.close();
+    };
+  });
+}
 
-//     transaction.oncomplete = () => {
-//       db.close();
-//     };
-//   });
-// }
+export async function deleteDataToIndexedDB(key: string): Promise<boolean> {
+  const db = await openIndexedDB();
 
-export async function getAllDataFromIndexedDB() {
+  return new Promise((resolve, reject) => {
+    const transaction = db.transaction(STORE_NAME, 'readwrite');
+    const objectStore = transaction.objectStore(STORE_NAME);
+
+    const request = objectStore.delete(key);
+
+    request.onsuccess = () => {
+      resolve(true);
+    };
+
+    request.onerror = () => {
+      reject(new Error('idb error'));
+    };
+
+    transaction.oncomplete = () => {
+      db.close();
+    };
+  });
+}
+
+export async function getAllDataFromIndexedDB<T>(): Promise<T[]> {
   const db = await openIndexedDB();
 
   return new Promise((resolve, reject) => {
@@ -110,12 +149,12 @@ export async function getAllDataFromIndexedDB() {
     const request = objectStore.getAll();
 
     request.onsuccess = () => {
-      const data: unknown = request.result;
+      const data: T[] = request.result;
       resolve(data);
     };
 
     request.onerror = () => {
-      reject('데이터 조회 중 오류가 발생했습니다.');
+      reject(new Error('idb error'));
     };
 
     transaction.oncomplete = () => {

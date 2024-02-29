@@ -90,6 +90,7 @@ export default function AddForm() {
           step='0.01'
           className='w-full px-2'
           defaultValue={0}
+          required
         />
         <div className='right-2 absolute'>km</div>
       </div>
@@ -103,6 +104,7 @@ export default function AddForm() {
           type='number'
           className='w-full px-2'
           defaultValue={500}
+          required
         />
         <div className='right-2 absolute'>km</div>
       </div>
