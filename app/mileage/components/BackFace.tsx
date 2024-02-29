@@ -3,18 +3,13 @@
 import clsx from 'clsx';
 import styles from './shoesCard.module.css';
 import { editDataFromIndexedDB } from '@/app/libs/idb';
-import { useRef } from 'react';
 import { Shoes, useMileageStore } from '@/app/store/mileageStore';
+import { useState } from 'react';
 
 export default function BackFace() {
-  // useRef
-  const prevAccRef = useRef<HTMLInputElement>(null);
-  const prevGoalRef = useRef<HTMLInputElement>(null);
-  const addRef = useRef<HTMLInputElement>(null);
-
   // store
-  const setSelectedShoes = useMileageStore((state) => state.setSelectedShoes);
   const selectedShoes = useMileageStore((state) => state.selectedShoes);
+  const setSelectedShoes = useMileageStore((state) => state.setSelectedShoes);
 
   if (!selectedShoes) return;
   const { acc, goal, id } = selectedShoes;
@@ -22,25 +17,18 @@ export default function BackFace() {
   const editPrev = async (formData: FormData) => {
     const newAcc = +(formData.get('edit-acc') as string);
     const newGoal = +(formData.get('edit-goal') as string);
-
     const success = await editDataFromIndexedDB<Shoes>(
       { acc: newAcc, goal: newGoal, id },
       id
     );
-
-    if (success && prevAccRef.current && prevGoalRef.current) {
-      prevAccRef.current.value = newAcc.toString();
-      prevGoalRef.current.value = newGoal.toString();
+    if (success) {
       setSelectedShoes({ ...selectedShoes, acc: newAcc, goal: newGoal });
-      // TODO: Toast 적용
     }
   };
 
   const editNow = async (formData: FormData) => {
-    if (!prevAccRef.current) return;
     const addedMileage = +(formData.get('edit-add') as string);
-    const newAcc = +prevAccRef.current.value + addedMileage;
-
+    const newAcc = selectedShoes.acc + addedMileage;
     const success = await editDataFromIndexedDB<Shoes>(
       {
         acc: newAcc,
@@ -48,12 +36,8 @@ export default function BackFace() {
       },
       id
     );
-
-    if (success && addRef.current) {
-      prevAccRef.current.value = newAcc.toString();
-      addRef.current.value = '0';
+    if (success) {
       setSelectedShoes({ ...selectedShoes, acc: newAcc });
-      // TODO: Toast 적용
     }
   };
 
@@ -76,7 +60,7 @@ export default function BackFace() {
             step='0.01'
             className='border-2 max-w-[50%] border-blue-300  focus:outline-blue-500 rounded-lg pl-4'
             defaultValue={acc}
-            ref={prevAccRef}
+            key={`${id}${acc}${goal}`}
             required
           />
           <div className='right-2 absolute text-blue-500 top-1/2 translate-y-[-50%]'>
@@ -94,7 +78,7 @@ export default function BackFace() {
             step='0.01'
             className='border-2 max-w-[50%] border-blue-300 focus:outline-blue-500 rounded-lg pl-4'
             defaultValue={goal}
-            ref={prevGoalRef}
+            key={`${id}${acc}${goal}`}
           />
           <div className='right-2 absolute text-blue-500 top-1/2 translate-y-[-50%]'>
             km
@@ -125,8 +109,8 @@ export default function BackFace() {
             step='0.01'
             className='border-2 max-w-[50%] border-blue-300  focus:outline-blue-500 rounded-lg pl-4'
             defaultValue={0}
+            key={`${id}${acc}${goal}`}
             required
-            ref={addRef}
           />
           <div className='right-2 absolute text-blue-500 top-1/2 translate-y-[-50%]'>
             km
