@@ -1,18 +1,17 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useShoeSelectModalStore } from '../store/modalStore';
 import Modal from '../ui/modal/Modal';
-import Image from 'next/image';
 import { getAllDataFromIndexedDB } from '../libs/idb';
 import Dashboard from './components/dashboard';
 import AddForm from './components/addForm';
 import { useShoesStore } from '../store/shoesStore';
+import ShoesCard from './components/shoesCard';
 
 // https://dev.to/andyhaskell/testing-your-indexeddb-code-with-jest-2o17
 // https://ko.javascript.info/indexeddb#ref-467
 // https://bloodstrawberry.tistory.com/1265
-// TODO: 신발 카드 만들기, 더보기 수정하기, 날짜 수정하기
 
 export interface ShoesProps {
   id: string;
@@ -30,6 +29,7 @@ export default function Mileage() {
   const [allShoes, setAllShoes] = useState<ShoesProps[]>([]);
 
   useEffect(() => {
+    // indexedDB에서 신발을 모두 가져온다.
     const getAllData = async () => {
       const data = (await getAllDataFromIndexedDB()) as ShoesProps[];
       setAllShoes(data);
@@ -41,15 +41,28 @@ export default function Mileage() {
     return item.id === selected;
   });
 
-  if (allShoes.length) selectedShoes = allShoes[0];
+  if (!selectedShoes && allShoes.length) selectedShoes = allShoes[0];
+  else if (!selectedShoes) {
+    selectedShoes = {
+      id: 'null',
+      maker: 'null',
+      name: 'null',
+      acc: 0,
+      goal: 0,
+      imageSrc: 'null',
+      created: new Date(),
+    };
+  }
 
   return (
-    <div className='flex flex-col gap-4'>
+    <div className='flex flex-col gap-4 mb-[120px] md:mb-[50px]'>
       <h1 className='font-bold text-xl pb-4'>📝 신발 마일리지 기록</h1>
       <p>
         러닝화가 그동안 달린 거리를 기록할 수 있습니다.
         <br />
-        🔜 더 많은 러닝화가 추가 예정될 예정이에요
+        신발 이미지를 클릭하면 기록을 수정하거나 추가할 수 있습니다.
+        <br />
+        🔜 더 많은 러닝화가 추가 예정될 예정입니다.
       </p>
       <Dashboard allShoes={allShoes} />
       {isOpen && (
@@ -60,6 +73,7 @@ export default function Mileage() {
           <AddForm />
         </Modal>
       )}
+      <ShoesCard shoes={selectedShoes} />
     </div>
   );
 }

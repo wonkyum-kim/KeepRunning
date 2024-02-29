@@ -3,7 +3,13 @@ const STORE_NAME = 'mileage';
 
 function openIndexedDB() {
   return new Promise<IDBDatabase>((resolve, reject) => {
-    const request = window.indexedDB.open(DB_NAME, 2);
+    const idb =
+      window.indexedDB ||
+      window.mozIndexedDB ||
+      window.webkitIndexedDB ||
+      window.msIndexedDB ||
+      window.shimIndexedDB;
+    const request = idb.open(DB_NAME, 2);
 
     request.onerror = () => {
       reject('IndexedDB 접근 오류');
@@ -16,9 +22,11 @@ function openIndexedDB() {
 
     request.onupgradeneeded = () => {
       const db = request.result;
-      db.createObjectStore(STORE_NAME, {
-        keyPath: 'id',
-      });
+      if (!db.objectStoreNames.contains(STORE_NAME)) {
+        db.createObjectStore(STORE_NAME, {
+          keyPath: 'id',
+        });
+      }
     };
   });
 }

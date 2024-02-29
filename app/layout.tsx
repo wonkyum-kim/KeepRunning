@@ -32,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang='ko'>
       <body
-        className={`${inter.className} antialiased flex flex-col gap-4 w-full h-full p-4 md:w-[768px] m-auto`}
+        className={`${inter.className} antialiased flex flex-col gap-4 w-full h-auto p-4 md:w-[768px] m-auto`}
       >
         <div className='w-full rounded-lg bg-blue-500 p-2 md:p-4 md:h-40 flex justify-between items-center'>
           <Link
