@@ -14,7 +14,7 @@ export default function FrontFace({
   acc,
   goal,
 }: FrontFaceProps) {
-  const editHandler = () => {
+  const deleteHandler = () => {
     // TODO
   };
   return (
@@ -24,10 +24,10 @@ export default function FrontFace({
         <div className='w-full text-left'>{name}</div>
         <button
           id='edit'
-          onClick={editHandler}
+          onClick={deleteHandler}
           className='hover:bg-sky-200 text-xl absolute bg-sky-100 w-10 h-10 rounded-lg right-4 top-1/2 translate-y-[-50%] z-10'
         >
-          ✏️
+          ❌
         </button>
       </div>
       <figure className={styles.photo}>
