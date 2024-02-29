@@ -87,6 +87,7 @@ export default function AddForm() {
           id='prev'
           name='prev'
           type='number'
+          step='0.01'
           className='w-full px-2'
           defaultValue={0}
         />
