@@ -1,7 +1,6 @@
 const DB_NAME = 'keep-running';
-const STORE_NAME = 'mileage';
 
-function openIndexedDB() {
+function openIndexedDB(STORE_NAME: string) {
   return new Promise<IDBDatabase>((resolve, reject) => {
     const idb = window.indexedDB;
 
@@ -27,8 +26,11 @@ function openIndexedDB() {
   });
 }
 
-export async function addDataToIndexedDB<T>(data: T): Promise<boolean> {
-  const db = await openIndexedDB();
+export async function addDataToIndexedDB<T>(
+  STORE_NAME: string,
+  data: T
+): Promise<boolean> {
+  const db = await openIndexedDB(STORE_NAME);
 
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(STORE_NAME, 'readwrite');
@@ -50,10 +52,11 @@ export async function addDataToIndexedDB<T>(data: T): Promise<boolean> {
 }
 
 export async function editDataFromIndexedDB<T>(
+  STORE_NAME: string,
   data: Partial<T>,
   key: string
 ): Promise<boolean> {
-  const db = await openIndexedDB();
+  const db = await openIndexedDB(STORE_NAME);
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(STORE_NAME, 'readwrite');
     const objectStore = transaction.objectStore(STORE_NAME);
@@ -85,8 +88,11 @@ export async function editDataFromIndexedDB<T>(
   });
 }
 
-export async function getDataFromIndexedDB<T>(key: string): Promise<T> {
-  const db = await openIndexedDB();
+export async function getDataFromIndexedDB<T>(
+  STORE_NAME: string,
+  key: string
+): Promise<T> {
+  const db = await openIndexedDB(STORE_NAME);
 
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(STORE_NAME, 'readonly');
@@ -108,8 +114,11 @@ export async function getDataFromIndexedDB<T>(key: string): Promise<T> {
   });
 }
 
-export async function deleteDataToIndexedDB(key: string): Promise<boolean> {
-  const db = await openIndexedDB();
+export async function deleteDataToIndexedDB(
+  STORE_NAME: string,
+  key: string
+): Promise<boolean> {
+  const db = await openIndexedDB(STORE_NAME);
 
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(STORE_NAME, 'readwrite');
@@ -131,8 +140,10 @@ export async function deleteDataToIndexedDB(key: string): Promise<boolean> {
   });
 }
 
-export async function getAllDataFromIndexedDB<T>(): Promise<T[]> {
-  const db = await openIndexedDB();
+export async function getAllDataFromIndexedDB<T>(
+  STORE_NAME: string
+): Promise<T[]> {
+  const db = await openIndexedDB(STORE_NAME);
 
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(STORE_NAME, 'readonly');

@@ -6,6 +6,8 @@ import { editDataFromIndexedDB } from '@/app/libs/idb';
 import { Shoes, useMileageStore } from '@/app/store/mileageStore';
 import { useState } from 'react';
 
+const STORE_NAME = 'mileage';
+
 export default function BackFace() {
   // store
   const selectedShoes = useMileageStore((state) => state.selectedShoes);
@@ -18,6 +20,7 @@ export default function BackFace() {
     const newAcc = +(formData.get('edit-acc') as string);
     const newGoal = +(formData.get('edit-goal') as string);
     const success = await editDataFromIndexedDB<Shoes>(
+      STORE_NAME,
       { acc: newAcc, goal: newGoal, id },
       id
     );
@@ -30,6 +33,7 @@ export default function BackFace() {
     const addedMileage = +(formData.get('edit-add') as string);
     const newAcc = selectedShoes.acc + addedMileage;
     const success = await editDataFromIndexedDB<Shoes>(
+      STORE_NAME,
       {
         acc: newAcc,
         id,

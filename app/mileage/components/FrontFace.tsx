@@ -5,6 +5,8 @@ import styles from './shoesCard.module.css';
 import { deleteDataToIndexedDB, getAllDataFromIndexedDB } from '@/app/libs/idb';
 import { Shoes, useMileageStore } from '@/app/store/mileageStore';
 
+const STORE_NAME = 'mileage';
+
 export default function FrontFace() {
   const selectedShoes = useMileageStore((state) => state.selectedShoes);
   const setSelectedShoes = useMileageStore((state) => state.setSelectedShoes);
@@ -13,8 +15,8 @@ export default function FrontFace() {
   const deleteHandler = async () => {
     const real = confirm('정말 삭제하시겠습니까?');
     if (!real) return;
-    const success = await deleteDataToIndexedDB(id);
-    const result = await getAllDataFromIndexedDB<Shoes>();
+    const success = await deleteDataToIndexedDB(STORE_NAME, id);
+    const result = await getAllDataFromIndexedDB<Shoes>(STORE_NAME);
     if (success) {
       setAllShoes(result);
       setSelectedShoes(result.length === 0 ? null : result[0]);

@@ -17,7 +17,7 @@ export default function Mileage() {
   useEffect(() => {
     // indexedDB에서 신발을 모두 가져온다.
     const getAllData = async () => {
-      const data = (await getAllDataFromIndexedDB()) as Shoes[];
+      const data = (await getAllDataFromIndexedDB('mileage')) as Shoes[];
       // zustand에 저장한다.
       setAllShoes(data);
       setSelectedShoes(data.length === 0 ? null : data[0]);

@@ -7,6 +7,8 @@ import { useShoesModalStore } from '@/app/store/shoesModalStore';
 import { shoesList } from '@/app/store/shoesList';
 import { Shoes, useMileageStore } from '@/app/store/mileageStore';
 
+const STORE_NAME = 'mileage';
+
 export default function AddForm() {
   const onClose = useShoesModalStore((state) => state.onClose);
   const setAllShoes = useMileageStore((state) => state.setAllShoes);
@@ -37,9 +39,9 @@ export default function AddForm() {
     };
 
     // idb에 저장
-    await addDataToIndexedDB(newShoes);
+    await addDataToIndexedDB(STORE_NAME, newShoes);
     // idb에서 불러옴
-    const result = await getAllDataFromIndexedDB<Shoes>();
+    const result = await getAllDataFromIndexedDB<Shoes>(STORE_NAME);
     // 재렌더링
     setSelectedShoes(newShoes);
     setAllShoes(result);
