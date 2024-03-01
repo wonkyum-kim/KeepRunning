@@ -31,7 +31,7 @@ export default function ShoesCard() {
   const selectedShoes = useMileageStore((state) => state.selectedShoes);
 
   if (!selectedShoes) {
-    return <div>신발을 추가해주세요</div>;
+    return <div className='w-full text-end px-4'>신발을 추가해주세요 ⬆️</div>;
   }
 
   const handleFlip: MouseEventHandler = (event) => {
