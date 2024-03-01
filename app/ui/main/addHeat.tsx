@@ -4,19 +4,10 @@ import { useState } from 'react';
 import { editDataFromIndexedDB, getAllDataFromIndexedDB } from '@/app/libs/idb';
 import { useCalHeatmapStore } from '@/app/store/calHeatmapStore';
 import { Heat } from './calHeat';
-
-function getTodayString() {
-  const now = new Date();
-  const toadyYear = now.getFullYear();
-  let todayMonth = (now.getMonth() + 1).toString();
-  let todayDate = now.getDate().toString();
-  if (todayMonth.length === 1) todayMonth = '0' + todayMonth;
-  if (todayDate.length === 1) todayDate = '0' + todayDate;
-  return `${toadyYear}-${todayMonth}-${todayDate}`;
-}
+import { getDateString } from '@/app/libs/getDateString';
 
 export default function AddHeat() {
-  const todayString = getTodayString();
+  const todayString = getDateString(new Date());
 
   const [dateString, setDateString] = useState(todayString);
 
