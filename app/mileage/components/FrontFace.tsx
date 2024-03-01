@@ -11,6 +11,8 @@ export default function FrontFace() {
   const setAllShoes = useMileageStore((state) => state.setAllShoes);
 
   const deleteHandler = async () => {
+    const real = confirm('정말 삭제하시겠습니까?');
+    if (!real) return;
     const success = await deleteDataToIndexedDB(id);
     const result = await getAllDataFromIndexedDB<Shoes>();
     if (success) {
