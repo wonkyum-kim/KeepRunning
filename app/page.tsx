@@ -12,7 +12,7 @@ const CalHeat = dynamic(() => import('./ui/main/calHeat'), {
 
 export default function Home() {
   return (
-    <main className='w-full flex flex-col gap-4'>
+    <main className='w-full flex flex-col gap-4 mb-[100px]'>
       <div className='w-full flex flex-col gap-4'>
         <h1 className='font-bold text-xl'>✔️ 러닝 히트맵</h1>
         <p className='flex items-center justify-between'>
