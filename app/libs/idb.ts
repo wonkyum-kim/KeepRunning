@@ -1,13 +1,14 @@
 const DB_NAME = 'keep-running';
+const STORE_NAMES = ['mileage', 'calHeat'];
 
-function openIndexedDB(STORE_NAME: string) {
+function openIndexedDB() {
   return new Promise<IDBDatabase>((resolve, reject) => {
     const idb = window.indexedDB;
 
-    const request = idb.open(DB_NAME, 2);
+    const request = idb.open(DB_NAME, 1);
 
     request.onerror = () => {
-      reject('IndexedDB 접근 오류');
+      reject(false);
     };
 
     request.onsuccess = () => {
@@ -17,11 +18,13 @@ function openIndexedDB(STORE_NAME: string) {
 
     request.onupgradeneeded = () => {
       const db = request.result;
-      if (!db.objectStoreNames.contains(STORE_NAME)) {
-        db.createObjectStore(STORE_NAME, {
-          keyPath: 'id',
-        });
-      }
+      STORE_NAMES.forEach((s) => {
+        if (!db.objectStoreNames.contains(s)) {
+          db.createObjectStore(s, {
+            keyPath: 'id',
+          });
+        }
+      });
     };
   });
 }
@@ -30,7 +33,7 @@ export async function addDataToIndexedDB<T>(
   STORE_NAME: string,
   data: T
 ): Promise<boolean> {
-  const db = await openIndexedDB(STORE_NAME);
+  const db = await openIndexedDB();
 
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(STORE_NAME, 'readwrite');
@@ -56,7 +59,7 @@ export async function editDataFromIndexedDB<T>(
   data: Partial<T>,
   key: string
 ): Promise<boolean> {
-  const db = await openIndexedDB(STORE_NAME);
+  const db = await openIndexedDB();
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(STORE_NAME, 'readwrite');
     const objectStore = transaction.objectStore(STORE_NAME);
@@ -92,7 +95,7 @@ export async function getDataFromIndexedDB<T>(
   STORE_NAME: string,
   key: string
 ): Promise<T> {
-  const db = await openIndexedDB(STORE_NAME);
+  const db = await openIndexedDB();
 
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(STORE_NAME, 'readonly');
@@ -118,7 +121,7 @@ export async function deleteDataToIndexedDB(
   STORE_NAME: string,
   key: string
 ): Promise<boolean> {
-  const db = await openIndexedDB(STORE_NAME);
+  const db = await openIndexedDB();
 
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(STORE_NAME, 'readwrite');
@@ -143,7 +146,7 @@ export async function deleteDataToIndexedDB(
 export async function getAllDataFromIndexedDB<T>(
   STORE_NAME: string
 ): Promise<T[]> {
-  const db = await openIndexedDB(STORE_NAME);
+  const db = await openIndexedDB();
 
   return new Promise((resolve, reject) => {
     const transaction = db.transaction(STORE_NAME, 'readonly');
