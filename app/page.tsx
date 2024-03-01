@@ -3,6 +3,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import SelectYear from './ui/main/selectYear';
 import AddHeat from './ui/main/addHeat';
 import ShowResult from './ui/main/showResult';
+import ShowStreak from './ui/main/showStreak';
 
 const CalHeat = dynamic(() => import('./ui/main/calHeat'), {
   ssr: false,
@@ -20,6 +21,7 @@ export default function Home() {
         </p>
         <CalHeat />
         <AddHeat />
+        <ShowStreak />
       </div>
       <hr />
       <ShowResult />
