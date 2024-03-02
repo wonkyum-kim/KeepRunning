@@ -14,7 +14,7 @@ export function calcStreak(heats: Heat[]) {
     const diff = todayIndex - i;
     prevDay.setDate(new Date().getDate() - diff);
     const prevDateString = getDateString(prevDay);
-    if (heats[i].date !== prevDateString) break;
+    if (heats[i].date !== prevDateString || heats[i].dist === 0) break;
     streak++;
   }
   return streak;
