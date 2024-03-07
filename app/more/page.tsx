@@ -11,12 +11,15 @@ export default function MorePage() {
       <Link href='/contest' className='hover:bg-[#eee] p-4 rounded-lg'>
         📅 대회 일정 확인
       </Link>
-      <div className='hover:bg-[#eee] p-4 rounded-lg cursor-not-allowed'>
+      <Link href='/measurement' className='hover:bg-[#eee] p-4 rounded-lg'>
+        👣 올바른 신발 사이즈 선택하기
+      </Link>
+      {/* <div className='hover:bg-[#eee] p-4 rounded-lg cursor-not-allowed'>
         TODO: 내 일정
       </div>
       <div className='hover:bg-[#eee] p-4 rounded-lg cursor-not-allowed'>
         TODO: 개발자 정보
-      </div>
+      </div> */}
     </div>
   );
 }
