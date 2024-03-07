@@ -33,8 +33,13 @@ export default function AddHeat() {
   };
 
   return (
-    <form className='w-full flex flex-col gap-4' action={submitHander}>
+    <form
+      className='w-full flex flex-col gap-4'
+      action={submitHander}
+      data-testid='form'
+    >
       <input
+        data-testid='date-input'
         type='date'
         name='today'
         defaultValue={todayString}
@@ -52,6 +57,7 @@ export default function AddHeat() {
             달린 거리:
           </label>
           <input
+            data-testid='dist-input'
             type='number'
             step='0.01'
             id='dist'
@@ -62,7 +68,11 @@ export default function AddHeat() {
           />
           <div>km</div>
         </div>
-        <button className='bg-blue-500 rounded-lg text-white p-1 w-[50px]'>
+        <button
+          type='submit'
+          data-testid='submit-button'
+          className='bg-blue-500 rounded-lg text-white p-1 w-[50px]'
+        >
           제출
         </button>
       </div>
