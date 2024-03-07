@@ -1,5 +1,6 @@
 'use client';
 
+import { getRunningStat } from '@/app/libs/getRunningStat';
 import { useCalHeatmapStore } from '@/app/store/calHeatmapStore';
 import { ChangeEventHandler, useState } from 'react';
 
@@ -23,29 +24,11 @@ export default function ShowResult() {
   const year = useCalHeatmapStore((state) => state.year);
   const [month, setMonth] = useState('01');
 
-  const yearAcc = heats.reduce((acc, item) => {
-    if (item.date.startsWith(year)) return acc + item.dist;
-    return acc;
-  }, 0);
-
-  const yearPlay = heats.reduce((acc, item) => {
-    if (item.date.startsWith(year)) return acc + 1;
-    return acc;
-  }, 0);
-
-  const yearAvg = yearPlay === 0 ? 0 : (yearAcc / yearPlay).toFixed(2);
-
-  const monthAcc = heats.reduce((acc, item) => {
-    if (item.date.startsWith(`${year}-${month}`)) return acc + item.dist;
-    return acc;
-  }, 0);
-
-  const monthPlay = heats.reduce((acc, item) => {
-    if (item.date.startsWith(`${year}-${month}`)) return acc + 1;
-    return acc;
-  }, 0);
-
-  const monthAvg = monthPlay === 0 ? 0 : (monthAcc / monthPlay).toFixed(2);
+  const { yearAcc, yearAvg, monthAcc, monthPlay, monthAvg } = getRunningStat(
+    heats,
+    year,
+    month
+  );
 
   const monthChangeHandler: ChangeEventHandler<HTMLSelectElement> = (event) => {
     setMonth(event.target.value);
